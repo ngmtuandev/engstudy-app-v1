@@ -10,17 +10,20 @@ import LoginScreen from './src/screens/LoginScreen';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AddVocaScreen from './src/screens/AddVocaScreen';
+import { useSelector } from 'react-redux';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-const [token, setToken] = useState(null)
+const [tokenLogin, setTokenLogin] = useState(null)
+// const {dataUser, token} = useSelector(state => state.auth)
+// console.log('tk >>', tk)
 useEffect(() => {
   (async() => {
     const getToken = await AsyncStorage.getItem("USER_LOGIN")
-    setToken(getToken)
+    setTokenLogin(getToken)
   })()
-  console.log('token login >>>', token)
-}, [token])
+  // console.log('token login >>>', tokenLogin)
+}, [])
 
   return (
     <Provider store={store}>
@@ -28,12 +31,11 @@ useEffect(() => {
         <View className='flex-1'>
           <NavigationContainer>
             {
-              token ? <Stack.Navigator initialRouteName='AddVoca'>
-              <Stack.Screen name='AddVoca' component={AddVocaScreen} options={{headerShown: false}}></Stack.Screen>
-            </Stack.Navigator> : <Stack.Navigator initialRouteName='Register'>
-              <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
-              <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
-            </Stack.Navigator> 
+              <Stack.Navigator initialRouteName={tokenLogin ? 'AddVoca' : 'Register'}>
+                <Stack.Screen name='AddVoca' component={AddVocaScreen} options={{headerShown: false}}></Stack.Screen>
+                <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+              </Stack.Navigator> 
             }
           </NavigationContainer>
           <StatusBar style="auto" />

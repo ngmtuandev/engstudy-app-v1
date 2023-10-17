@@ -4,9 +4,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const actionAsyncLogin = createAsyncThunk("auth/data_user", async (data) => {
     const {fetchLogin} = useAuth()
     const dataLogin = await fetchLogin(data)
+    const dataUser = {
+        dataLogin : dataLogin,
+        isRemember: data?.remember
+    }
     await AsyncStorage.setItem('USER_LOGIN', JSON.stringify(dataLogin?.accessToken));
-    console.log('data login with redux-tookit', dataLogin?.accessToken)
-    return dataLogin
+    return dataUser
 })
 
 export default actionAsyncLogin

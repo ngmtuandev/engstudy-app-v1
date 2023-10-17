@@ -15,6 +15,9 @@ const authSlice = createSlice({
         state.isLogin = false,
         state.dataUser = null
         AsyncStorage.removeItem('USER_LOGIN')
+      },
+      rememberAuth: (state, action) => {
+        console.log('action remember >>>', action)
       }
     },
     extraReducers: (builder) => {
@@ -27,11 +30,11 @@ const authSlice = createSlice({
       // full fill ...
       builder.addCase(actionAsyncLogin.fulfilled, (state, action) => {
         // console.log('check action user in userSlice >>>', action.payload)
-        console.log('actionAsyncLogin full extra >>>>', action?.payload)
-        const jsonValue = JSON.stringify(action?.payload?.accessToken);
+        console.log('actionAsyncLogin full extra >>>>', action?.payload?.isRemember)
+        const jsonValue = JSON.stringify(action?.payload?.dataLogin?.accessToken);
         state.token = jsonValue
         state.isLoading = false
-        state.dataUser = action?.payload
+        state.dataUser = action?.payload?.dataLogin
         state.isLogin = true
       });
   
@@ -41,7 +44,7 @@ const authSlice = createSlice({
       });
     },
   })
-export const {logout} = authSlice.actions;
+export const {logout, rememberAuth} = authSlice.actions;
 export default authSlice.reducer
 
   

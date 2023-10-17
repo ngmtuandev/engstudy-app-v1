@@ -1,12 +1,13 @@
-import { View, Text, TextInput, TouchableOpacity, Pressable, Image } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Pressable, Image, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import Button from './Button'
 import { useAuth } from '../hooks/useAuth'
 import axios from 'axios'
 import actionAsyncLogin from '../store/actionAsyncLogin'
 import {useDispatch} from 'react-redux'
+import { rememberAuth } from '../store/authSlice'
 
-const FormInput = ({isRegister, toLogin}) => {
+const FormInput = ({isRegister, toLogin, setShowLogo}) => {
     const dispatch = useDispatch()
     const {fetchRegister, fetchLogin} = useAuth()
     const [dataForm, setDataForm] = useState({
@@ -14,11 +15,12 @@ const FormInput = ({isRegister, toLogin}) => {
         password: '',
         firstName: '',
         lastName: '', 
-        confirmpassword: ''
+        confirmpassword: '',
+        remember: false
     })
     const [stateRegister, setStateRegister] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
-
+    const [avoidKeyboard, setAvoidKeyBoard] = useState(false)
     const handleSubmitRegister = async () => {
       try {
         console.log('data >>>', dataForm)
@@ -34,11 +36,16 @@ const FormInput = ({isRegister, toLogin}) => {
     
     const handleSubmitLogin = async () => {
       try {
-        // const response = await fetchLogin(dataForm)
-        // console.log('response >>>', response)
-        // console.log('Response Login: >>>>', JSON.parse(response));
-        // console.log(JSON.parse(response).status)
-        dispatch(actionAsyncLogin(dataForm))
+        if (isChecked === false) {
+          const data = {...dataForm, remember: false}
+          dispatch(actionAsyncLogin(data))
+        }
+        else {
+            const data = {...dataForm, remember: true}
+            dispatch(actionAsyncLogin(data))
+        }
+        
+        
       } catch (error) {
         console.log('Error:', error);
       }
@@ -52,7 +59,7 @@ const FormInput = ({isRegister, toLogin}) => {
   return (
     <View className=''>
     
-      <View className='flex gap-4 mt-[2px]'>
+      <View className={`flex gap-4 ${avoidKeyboard ? '-mt-[60px]' : 'mt-[2px]'}`}>
         <TextInput 
         onChangeText={(text) => {
             setDataForm({...dataForm, email : text})
@@ -77,11 +84,27 @@ const FormInput = ({isRegister, toLogin}) => {
         onChangeText={(text) => {
             setDataForm({...dataForm, password : text})
         }}
+        onFocus={() => {
+          setAvoidKeyBoard(true)
+          setShowLogo(true)
+        }}
+        onBlur={() => {
+          setAvoidKeyBoard(false)
+          setShowLogo(false)
+        }}
         className='w-[300px] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold' 
         placeholder='Mật khẩu' value={dataForm?.password}></TextInput>
         <TextInput 
         onChangeText={(text) => {
             setDataForm({...dataForm, confirmpassword : text})
+        }}
+        onFocus={() => {
+          setAvoidKeyBoard(true)
+          setShowLogo(true)
+        }}
+        onBlur={() => {
+          setAvoidKeyBoard(false)
+          setShowLogo(false)
         }}
         className='w-[300px] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold' 
         placeholder='Xác nhận mật khẩu' value={dataForm?.confirmpassword}></TextInput>
@@ -117,7 +140,6 @@ const FormInput = ({isRegister, toLogin}) => {
           stateRegister={stateRegister}
           title= {isRegister ? 'Đăng ký' : 'Đăng nhập'} 
           onSubmit = {isRegister ? handleSubmitRegister : handleSubmitLogin}></Button>
-
     </View>
   )
 }

@@ -3,10 +3,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../store/authSlice'
 // import RNRestart from 'react-native-restart'
-const AddVocaScreen = () => {
+const AddVocaScreen = ({navigation}) => {
     const {dataUser, token} = useSelector(state => state.auth)
     const dispatch = useDispatch()
-    console.log('data user had login', dataUser, token)
+    // console.log('data user had login', dataUser, token)
   return (
     <View>
       <View className='w-screen h-screen bg-red-400'>
@@ -19,6 +19,7 @@ const AddVocaScreen = () => {
                     </View>
                     <TouchableOpacity onPress={() => {
                         dispatch(logout())
+                        navigation.navigate('Register')
                     }}>
                       <Text>Logout</Text>
                     </TouchableOpacity>

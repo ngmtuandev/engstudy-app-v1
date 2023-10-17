@@ -14,7 +14,7 @@ const vocabularyController = {
     }
     else {
         const findVocaExist = await Vocabulary.findOne({eng})
-        console.log('findVocaExist >>>>', findVocaExist)
+        // console.log('findVocaExist >>>>', findVocaExist)
         if (findVocaExist) {
             res.status(401).json({
                 status: 1,
@@ -35,7 +35,7 @@ const vocabularyController = {
   getItemVoca: asyncHandler(async(req,res) => {
     const { eng } = req.params;
     const itemVoca = await Vocabulary.findOne({eng})
-    console.log('check itemVoca >>>>', itemVoca)
+    // console.log('check itemVoca >>>>', itemVoca)
     if (itemVoca) {
         res.status(201).json({
             status: 0,
@@ -65,7 +65,7 @@ const vocabularyController = {
     const {eng} = req.params
     const {id} = req.auth
     const vocaCurrLearn = await Vocabulary.findOne({user: id, eng})
-    console.log('Voca current leaning >>>> ', vocaCurrLearn)
+    // console.log('Voca current leaning >>>> ', vocaCurrLearn)
     if (vocaCurrLearn) {
         console.log('vocaCurrLearn.progress voca ', eng, 'is >>>', vocaCurrLearn.progress)
         if (+vocaCurrLearn.progress < 5) {

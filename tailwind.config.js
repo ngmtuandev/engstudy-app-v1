@@ -14,9 +14,10 @@ module.exports = {
       },
       colors: {
         colorWhite: "#FFFFFF",
-        colorGreenSlight: "#8DFFA0",
-        colorBlackDark: "#181A1B",
-        colorGreenBold: "#0B9A47",
+        colorBrownSlightLV2: "#EAC696",
+        colorBrownDarkLV2: "#765827",
+        colorBrownBold: "#765827",
+        colorBorder: "#6C6A6A",
       },
     },
   },

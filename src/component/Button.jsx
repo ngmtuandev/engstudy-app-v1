@@ -1,16 +1,16 @@
 import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 
-const Button = ({title, onSubmit}) => {
+const Button = ({title, onSubmit, stateRegister}) => {
   
   const handlePress = () => {
     onSubmit()
   }
 
   return (
-    <View className='w-[200px] h-[40px] rounded-3xl bg-colorGreenBold mt-4 flex justify-center items-center text-center'>
+    <View className={`${stateRegister ? 'w-[92%]' : 'w-[100%]'} px-form h-[40px] my-5 rounded-lg bg-colorBrownBold mt-4 flex justify-center items-center text-center`}>
       <Pressable onPress={handlePress}>
-        <Text className='text-colorWhite text-[17px] font-semibold'>{title}</Text>
+        <Text className='text-colorBrownSlightLV2 text-[16px] font-semibold'>{title}</Text>
       </Pressable>
     </View>
   )

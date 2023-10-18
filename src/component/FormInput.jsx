@@ -50,26 +50,26 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
       setIsHandleLogin(!isHandleLogin)
       try {
         // dispatch(rememberAuth())
-        if (!errForm.confirmpassword || !errForm.email || !errForm.password) {
-          Alert.alert(
-            'EngStudy thông báo !',
-            'Thông tin bạn nhập không chính xác',
-            [
-              {
-                text: isRegister ? 'Tạo lại' : 'Đăng nhập lại',
-                style: 'cancel',
-              },
-            ],
-            {
-              cancelable: true,
-              onDismiss: () =>
-                Alert.alert(
-                  'This alert was dismissed by tapping outside of the alert dialog.',
-                ),
-            },
-          );
-        }
-        else {
+        // if (!errForm.confirmpassword || !errForm.email || !errForm.password) {
+        //   Alert.alert(
+        //     'EngStudy thông báo !',
+        //     'Thông tin bạn nhập không chính xác',
+        //     [
+        //       {
+        //         text: isRegister ? 'Tạo lại' : 'Đăng nhập lại',
+        //         style: 'cancel',
+        //       },
+        //     ],
+        //     {
+        //       cancelable: true,
+        //       onDismiss: () =>
+        //         Alert.alert(
+        //           'This alert was dismissed by tapping outside of the alert dialog.',
+        //         ),
+        //     },
+        //   );
+        // }
+        // else {
           if (isChecked === false) {
             const data = {...dataForm, remember: false, password: dataForm?.password}
             dispatch(actionAsyncLogin(data))
@@ -78,7 +78,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
               const data = {...dataForm, remember: true, password: dataForm?.password}
               dispatch(actionAsyncLogin(data))
           }
-        }
+        // }
         
         
       } catch (error) {
@@ -91,7 +91,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
     }
     
     const data_user_login = dataUser?.data
-    console.log('data_user_login >>>', data_user_login)
+    // console.log('data_user_login >>>', data_user_login)
       useEffect(() => {
         (async() => {
             if (isRememberAuth === true) {

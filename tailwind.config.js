@@ -18,6 +18,8 @@ module.exports = {
         colorBrownDarkLV2: "#765827",
         colorBrownBold: "#765827",
         colorBorder: "#6C6A6A",
+        colorBrownSlightLV3: "#C8AE7D",
+        
       },
     },
   },

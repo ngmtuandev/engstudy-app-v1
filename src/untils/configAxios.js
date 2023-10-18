@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const instance = axios.create({
     baseURL: "http://192.168.1.142:5000/api",
 })
@@ -14,6 +14,22 @@ instance.interceptors.request.use(
       return Promise.reject(error);
     }
   );
+
+
+// instance.interceptors.request.use(function (config) {
+//     (async() => {
+//       var localStorageDataUserLogin = await AsyncStorage.getItem('USER_LOGIN')
+//       if (localStorageDataUserLogin && typeof localStorageDataUserLogin === 'string') {
+//         console.log('string')
+//       localStorageDataUserLogin = JSON.parse(localStorageDataUserLogin)
+//       console.log('localStorageDataUserLogin parse >>> : ', localStorageDataUserLogin)
+//       config.headers = {author : `Bearer ${localStorageDataUserLogin}`}
+//       // console.log('config >>>', config)
+//       return config 
+//     } else return config
+//     })()
+    
+//   })
 
 
 // DỮ LIỆU TRẢ VỀ

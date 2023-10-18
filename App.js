@@ -31,10 +31,10 @@ useEffect(() => {
         <View className='flex-1'>
           <NavigationContainer>
             {
-              <Stack.Navigator initialRouteName={tokenLogin ? 'AddVoca' : 'Register'}>
+              <Stack.Navigator initialRouteName={tokenLogin ? 'AddVoca' : 'Login'}>
                 <Stack.Screen name='AddVoca' component={AddVocaScreen} options={{headerShown: false}}></Stack.Screen>
-                <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="Register" component={RegisterScreen} options={{headerShown: false}}/>
               </Stack.Navigator> 
             }
           </NavigationContainer>

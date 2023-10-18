@@ -19,7 +19,7 @@ const AddVocaScreen = ({navigation}) => {
                     </View>
                     <TouchableOpacity onPress={() => {
                         dispatch(logout())
-                        navigation.navigate('Register')
+                        navigation.navigate('Login')
                     }}>
                       <Text>Logout</Text>
                     </TouchableOpacity>

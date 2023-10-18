@@ -1,15 +1,18 @@
-import { View, Text, TextInput, TouchableOpacity, Pressable, Image, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, Pressable, Image, Alert } from 'react-native'
+import React, { useState, useEffect, useRef } from 'react'
 import Button from './Button'
 import { useAuth } from '../hooks/useAuth'
 import axios from 'axios'
 import actionAsyncLogin from '../store/actionAsyncLogin'
-import {useDispatch} from 'react-redux'
-import { rememberAuth } from '../store/authSlice'
-
+import {useDispatch, useSelector} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { validateEmail } from '../funcntionSupport/validateEmail'
+import ErrorValidate from './ErrorValidate'
+// import { rememberAuth } from '../store/authSlice'
 const FormInput = ({isRegister, toLogin, setShowLogo}) => {
     const dispatch = useDispatch()
     const {fetchRegister, fetchLogin} = useAuth()
+    const {isRememberAuth, dataUser} = useSelector(state => state.auth)
     const [dataForm, setDataForm] = useState({
         email: '',
         password: '',
@@ -18,9 +21,18 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
         confirmpassword: '',
         remember: false
     })
+    const [errForm, setErrForm] = useState({
+        email: true,
+        password: true,
+        firstName: true,
+        lastName: true, 
+        confirmpassword: true,
+    })
     const [stateRegister, setStateRegister] = useState(false)
     const [isChecked, setIsChecked] = useState(false)
     const [avoidKeyboard, setAvoidKeyBoard] = useState(false)
+    const [isHandleLogin, setIsHandleLogin] = useState(false)
+
     const handleSubmitRegister = async () => {
       try {
         console.log('data >>>', dataForm)
@@ -35,14 +47,37 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
       }
     
     const handleSubmitLogin = async () => {
+      setIsHandleLogin(!isHandleLogin)
       try {
-        if (isChecked === false) {
-          const data = {...dataForm, remember: false}
-          dispatch(actionAsyncLogin(data))
+        // dispatch(rememberAuth())
+        if (!errForm.confirmpassword || !errForm.email || !errForm.password) {
+          Alert.alert(
+            'EngStudy thông báo !',
+            'Thông tin bạn nhập không chính xác',
+            [
+              {
+                text: isRegister ? 'Tạo lại' : 'Đăng nhập lại',
+                style: 'cancel',
+              },
+            ],
+            {
+              cancelable: true,
+              onDismiss: () =>
+                Alert.alert(
+                  'This alert was dismissed by tapping outside of the alert dialog.',
+                ),
+            },
+          );
         }
         else {
-            const data = {...dataForm, remember: true}
+          if (isChecked === false) {
+            const data = {...dataForm, remember: false, password: dataForm?.password}
             dispatch(actionAsyncLogin(data))
+          }
+          else {
+              const data = {...dataForm, remember: true, password: dataForm?.password}
+              dispatch(actionAsyncLogin(data))
+          }
         }
         
         
@@ -53,8 +88,65 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
 
     const handleCheckBox = () => {
       setIsChecked(!isChecked)
-      console.log('is checked >>>', isChecked)
     }
+    
+    const data_user_login = dataUser?.data
+    console.log('data_user_login >>>', data_user_login)
+      useEffect(() => {
+        (async() => {
+            if (isRememberAuth === true) {
+              console.log('ghi nhớ')
+              setDataForm({
+                email: data_user_login?.email,
+                password: dataUser?.password,
+                firstName: data_user_login?.firstName,
+                lastName: data_user_login?.lastName, 
+                confirmpassword: dataUser?.password,
+                remember: true
+            })
+            }
+            else if (isRememberAuth === false) {
+              console.log('không ghi nhớ')
+              setDataForm({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '', 
+                confirmpassword: '',
+                remember: false
+            })
+            }
+            
+          })()
+      }, [isRememberAuth, isHandleLogin])
+
+      const handleCheckEmail = (email) => {
+        const checkemail = validateEmail(email)
+          if (checkemail === null) {
+            setErrForm({...errForm, email: false})
+            // setTimeout(() => {
+            //   setErrForm({...errForm, email: true})
+            // }, 3000)
+          }
+      }
+
+      const handleCheckConfirmPassword = (pass, confirmpass) => {
+          if (pass.toString() !== confirmpass.toString()) {
+            setErrForm({...errForm, confirmpassword: false})
+            // setTimeout(() => {
+            //   setErrForm({...errForm, email: true})
+            // }, 3000)
+          }
+      }
+
+      const handleValidatePassword = (password) => {
+        if (password.length < 8) {
+          setErrForm({...errForm, password: false})
+          // setTimeout(() => {
+          //   setErrForm({...errForm, password: true})
+          // }, 3000)
+        }
+      }
 
   return (
     <View className=''>
@@ -64,8 +156,17 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
         onChangeText={(text) => {
             setDataForm({...dataForm, email : text})
         }}
+        onFocus={() => {
+          setErrForm({...errForm, email: true})
+        }}
+        onBlur={() => {
+          handleCheckEmail(dataForm.email)
+        }}
         className='w-[300px] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold' 
         placeholder='Email của bạn' value={dataForm?.email}></TextInput>
+        {
+          !errForm.email && <ErrorValidate err={'Trường này phải là email'}></ErrorValidate>
+        }
         <TextInput 
           onChangeText={(text) => {
               setDataForm({...dataForm, firstName : text})
@@ -87,13 +188,18 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
         onFocus={() => {
           setAvoidKeyBoard(true)
           setShowLogo(true)
+          setErrForm({...errForm, confirmpassword: true})
         }}
         onBlur={() => {
           setAvoidKeyBoard(false)
           setShowLogo(false)
+          handleValidatePassword(dataForm.password)
         }}
         className='w-[300px] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold' 
         placeholder='Mật khẩu' value={dataForm?.password}></TextInput>
+        {
+          !errForm.confirmpassword && <ErrorValidate err={'Mật khẩu phải dài hơn 8 kí tự'}></ErrorValidate>
+        }
         <TextInput 
         onChangeText={(text) => {
             setDataForm({...dataForm, confirmpassword : text})
@@ -101,13 +207,18 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
         onFocus={() => {
           setAvoidKeyBoard(true)
           setShowLogo(true)
+          setErrForm({...errForm, confirmpassword: true})
         }}
         onBlur={() => {
           setAvoidKeyBoard(false)
           setShowLogo(false)
+          handleCheckConfirmPassword(dataForm.password, dataForm.confirmpassword)
         }}
         className='w-[300px] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold' 
         placeholder='Xác nhận mật khẩu' value={dataForm?.confirmpassword}></TextInput>
+        {
+          !errForm.confirmpassword && <ErrorValidate err={'Mật khẩu xác nhận không đúng'}></ErrorValidate>
+        }
       </View> 
 
           {

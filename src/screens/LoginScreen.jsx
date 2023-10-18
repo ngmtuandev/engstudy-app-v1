@@ -1,7 +1,6 @@
 import { View, Text, ImageBackground, SafeAreaView, Image, TouchableOpacity, Pressable } from 'react-native'
 import React, { useEffect } from 'react'
 import FormInput from '../component/FormInput'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
@@ -16,6 +15,8 @@ const LoginScreen = () => {
             navigation.navigate('AddVoca')
         }
     }, [token])
+
+    
   return (
     <SafeAreaView className='flex-1'>
         <View className='w-screen h-screen bg-red-400'>
@@ -34,7 +35,15 @@ const LoginScreen = () => {
                     <View>
                         <FormInput setShowLogo = {setShowLogo} isRegister={false}></FormInput>
                     </View>
-                    
+                    <View className='flex-row'>
+                        <Text className='mr-1 text-gray-600 text-[12px]'>Bạn chưa có tài khoản ?</Text>
+                        <TouchableOpacity 
+                            onPress={() => {navigation.navigate('Register')}}>
+                            <View>
+                                <Text className='font-bold text-gray-800 text-[12px]'>Đăng Ký</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </ImageBackground>
         </View>

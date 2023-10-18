@@ -8,11 +8,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { validateEmail } from '../funcntionSupport/validateEmail'
 import ErrorValidate from './ErrorValidate'
-// import { rememberAuth } from '../store/authSlice'
+import SvgIcon from '../assets/useSVG'
 const FormInput = ({isRegister, toLogin, setShowLogo}) => {
     const dispatch = useDispatch()
     const {fetchRegister, fetchLogin} = useAuth()
     const {isRememberAuth, dataUser} = useSelector(state => state.auth)
+    const {CheckSVG} = SvgIcon
     const [dataForm, setDataForm] = useState({
         email: '',
         password: '',
@@ -32,11 +33,14 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
     const [isChecked, setIsChecked] = useState(false)
     const [avoidKeyboard, setAvoidKeyBoard] = useState(false)
     const [isHandleLogin, setIsHandleLogin] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const handleSubmitRegister = async () => {
       try {
         console.log('data >>>', dataForm)
+        setIsLoading(true)
         const response = await fetchRegister(dataForm)
+        setIsLoading(false)
         console.log('response >>>', response)
         if (+response['status'] === 0) {
           setStateRegister(true)
@@ -71,12 +75,16 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
         // }
         // else {
           if (isChecked === false) {
+            setIsLoading(false)
             const data = {...dataForm, remember: false, password: dataForm?.password}
             dispatch(actionAsyncLogin(data))
+            setIsLoading(true)
           }
           else {
+              setIsLoading(false)
               const data = {...dataForm, remember: true, password: dataForm?.password}
               dispatch(actionAsyncLogin(data))
+              setIsLoading(true)
           }
         // }
         
@@ -235,7 +243,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
                 <Pressable onPress={handleCheckBox}>
                   <View className='w-[20px] h-[20px] border-[1.5px] rounded-md border-colorBorder'></View>
                   {
-                    isChecked && <Image className='-mt-[18px] ml-[1px]' source={require('../assets/check.png')}></Image>
+                    isChecked && <CheckSVG className='absolute' width="20" height="20"></CheckSVG>
                   }
                 </Pressable>
                 <Text className='ml-1 text-colorBrownDarkLV2'>Ghi nhớ đăng nhập</Text>
@@ -248,6 +256,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
             </View>
           }
           <Button 
+          isLoading={isLoading}
           stateRegister={stateRegister}
           title= {isRegister ? 'Đăng ký' : 'Đăng nhập'} 
           onSubmit = {isRegister ? handleSubmitRegister : handleSubmitLogin}></Button>

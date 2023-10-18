@@ -8,8 +8,9 @@ const LoginScreen = () => {
     const navigation = useNavigation()
     const [showLogo, setShowLogo] = useState(false)
     const {token} = useSelector(state => state.auth)
-    // console.log('check token login >>>', token)
-    // console.log('loading', isLoading)
+    
+    
+
     useEffect(() => {
         if (token) {
             navigation.navigate('AddVoca')

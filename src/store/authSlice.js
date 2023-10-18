@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import actionAsyncLogin from "./actionAsyncLogin";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { APP_STORAGE_KEY } from "../constants/common";
 const authSlice = createSlice({
     name: "auth",
     initialState: {
@@ -15,7 +16,7 @@ const authSlice = createSlice({
         state.token = null,
         state.isLogin = false,
         state.dataUser = null
-        AsyncStorage.removeItem('USER_LOGIN')
+        AsyncStorage.removeItem(APP_STORAGE_KEY.USER_LOGIN)
       },
       // rememberAuth: async (state, action) => {
       //   const data_auth_remember = await AsyncStorage.getItem("REMEMBER_LOGIN")
@@ -51,15 +52,15 @@ const authSlice = createSlice({
         // console.log(' action?.payload?.isRemember &&&&&',  action?.payload?.isRemember)
         if ( !!action?.payload?.isRemember === true){
           (async()=>{
-            console.log('REMEMBER')
-            await AsyncStorage.setItem('REMEMBER_LOGIN',  JSON.stringify(action?.payload?.dataLogin));
+            // console.log('REMEMBER')
+            await AsyncStorage.setItem(APP_STORAGE_KEY.REMEMBERED_USER,  JSON.stringify(action?.payload?.dataLogin));
           })()
           state.isRememberAuth = true
         }
         else {
           (async()=> {
-            console.log('NOT REMEMBER')
-            await AsyncStorage.removeItem('REMEMBER_LOGIN');
+            // console.log('NOT REMEMBER')
+            await AsyncStorage.removeItem(APP_STORAGE_KEY.REMEMBERED_USER);
           })()
           state.isRememberAuth = false
         }

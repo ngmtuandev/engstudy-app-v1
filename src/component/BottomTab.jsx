@@ -9,7 +9,7 @@ const BottomTab = ({currentScreenName, onAddVocabulary}) => {
     onAddVocabulary()
   }
   return (
-    <View className='h-[100px] flex-row items-center justify-center w-screen  bottom-0 absolute bg-colorBrownSlightLV2'>
+    <View className='h-[80px] flex-row items-center justify-center w-screen  bottom-0 absolute bg-colorBrownSlightLV2'>
       
       <TouchableOpacity onPress={() => navigation.navigate('Test')}>
         <View className={`${currentScreenName === 'Test' && 'w-[80px] mb-24 flex justify-center items-center relative rounded-full h-[80px] bg-[#FEC]'}`}>

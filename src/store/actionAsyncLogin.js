@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useAuth } from "../hooks/useAuth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { APP_STORAGE_KEY } from "../constants/common";
 const actionAsyncLogin = createAsyncThunk("auth/data_user", async (data) => {
     const {fetchLogin} = useAuth()
     const dataLogin = await fetchLogin(data)
@@ -8,7 +9,7 @@ const actionAsyncLogin = createAsyncThunk("auth/data_user", async (data) => {
         dataLogin : {...dataLogin, password: data?.password},
         isRemember: data?.remember,
     }
-    await AsyncStorage.setItem('USER_LOGIN', JSON.stringify(dataLogin?.accessToken));
+    await AsyncStorage.setItem(APP_STORAGE_KEY.USER_LOGIN, JSON.stringify(dataLogin?.accessToken));
     return dataUser
 })
 

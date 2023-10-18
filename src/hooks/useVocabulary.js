@@ -14,7 +14,19 @@ export function useVocabulary() {
   return datavoca
   }
 
+  const fetchListVocabulary = (token) => 
+  {
+    const datavoca = axios({
+    url: '/vocabulary/all-voca',
+    method: "get",
+    headers: {
+      author: `Bearer ${JSON.parse(token)}`
+    }
+  })
+  return datavoca
+  }
+
   return {
-    fetchAddVocabulary,
+    fetchAddVocabulary,fetchListVocabulary
   };
 }

@@ -1,20 +1,46 @@
-import { View, Text, ImageBackground } from 'react-native'
-import React from 'react'
+import { View, Text, ImageBackground, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import BottomTab from '../component/BottomTab'
 import { useRoute } from '@react-navigation/native';
-
+import { useVocabulary } from '../hooks/useVocabulary';
+import { useSelector } from 'react-redux';
 const LearnVocaScreen = () => {
   const route = useRoute()
   const currentScreenName = route.name;
+  const [listVoca, setListVoca] = useState([])
+  const {fetchListVocabulary} = useVocabulary()
+  const {token} = useSelector(state => state.auth)
+  useEffect(() => {
+    (async() => {
+      const listVocabulary = await fetchListVocabulary(token)
+      if (listVocabulary) {
+        setListVoca(listVocabulary?.data)
+      }
+    })()
+  }, [])
+
+  console.log(listVoca[0])
+
   return (
     <View>
-      <View className='w-screen relative h-screen  bg-red-400'>
+      <View className='w-screen relative  bg-red-400'>
             <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" 
             className=' w-screen h-screen'>
-                <View className='flex-col flex-1'>
-                  <View className=' bg-slate-800'>
-
-                  </View>
+                <View className='flex-col flex-1 justify-center items-center mt-[115px]'>
+                  <ScrollView showsVerticalScrollIndicator={false}>
+                    {
+                      listVoca?.map(el => {
+                        return <View className='mb-6' key={el?._id}>
+                          <View className='w-[250px] rounded-lg flex justify-center items-center my-[2px] h-[35px] bg-colorBrownDarkLV2'>
+                            <Text className='text-colorWhite font-bold text-[17px]'>{el?.eng}</Text>
+                          </View>
+                          <View className='w-[250px] h-[35px] rounded-lg flex justify-center items-center my-[2px] bg-colorBrownSlightLV3'>
+                            <Text className='text-colorWhite font-bold text-[17px]'>{el?.vie}</Text>
+                          </View>
+                        </View>
+                      })
+                    }
+                  </ScrollView>
                   <BottomTab currentScreenName={currentScreenName}></BottomTab>
                 </View>
             </ImageBackground>

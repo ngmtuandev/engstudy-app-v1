@@ -1,0 +1,5 @@
+export const APP_STORAGE_KEY = {
+    USER_LOGIN: 'USER_LOGIN',
+    REMEMBERED_USER: 'REMEMBER_LOGIN',
+  };
+  

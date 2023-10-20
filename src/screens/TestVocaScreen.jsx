@@ -18,7 +18,9 @@ const TestVocaScreen = ({navigation}) => {
                     <Text className='text-[14px] mt-2 text-colorBrownBold font-bold'>{`(Chọn hình thức phù hợp để cải thiện nhanh hơn)`}</Text>
                   </View>
                   <View className='flex-row item justify-between mt-10'>
-                    <TouchableOpacity className='w-[110px] flex justify-center mx-2 shadow-xl items-center h-[30px] rounded-3xl bg-colorBrownDarkLV2'>
+                    <TouchableOpacity 
+                    onPress={() => {navigation.navigate(SCREEN_NAME.OPTION_VOCA)}}
+                    className='w-[110px] flex justify-center mx-2 shadow-xl items-center h-[30px] rounded-3xl bg-colorBrownDarkLV2'>
                       <Text className='text-colorWhite font-bold text-[16px]'>Chọn nghĩa</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 

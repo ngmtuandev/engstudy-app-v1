@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import randomNumber from '../funcntionSupport/randomNumber'
 import {useSelector} from 'react-redux'
 import { useVocabulary } from '../hooks/useVocabulary'
-import { sufferArrray } from '../funcntionSupport/sufferArrray'
+const _ = require('lodash')
+
 const ConnectVocaGameScreen = () => {
   const [isStart, setIsStart] = useState(false)
   const [listVoCaTest, setListVocaTest] = useState([])
@@ -11,7 +12,7 @@ const ConnectVocaGameScreen = () => {
   const [listVocaTestCurrent2, setListVocaTestCurrent2] = useState([])
   const [chooseOne, setChooseOne] = useState('')
   const [chooseTwo, setChooseTwo] = useState('')
-  const [correct, setCorrect] = useState(false)
+  // const [correct, setCorrect] = useState(false)
   const {token} = useSelector(state => state.auth)
   const {fetchListVocabularyLearnedTest} = useVocabulary()
   useEffect(() => {
@@ -24,9 +25,9 @@ const ConnectVocaGameScreen = () => {
   }, [])
   const arrList = randomNumber(8, listVoCaTest?.length)
   // console.log('array list >>>', arrList)
-  const arrList2 = sufferArrray(arrList)
-  // console.log('sufferArrray', a)
-  // console.log('arr list : ', arrList)
+  const arrList2 =_.shuffle(arrList)
+  console.log('arr list : ', arrList)
+  console.log('sufferArrray', arrList2)
   const handleStart = () => {
     setIsStart(true)
     let listVoca = []
@@ -37,10 +38,9 @@ const ConnectVocaGameScreen = () => {
     arrList2?.map(item => {
       listVocaTwo.push({...listVoCaTest[item], isCorrect : false})
     })
-    if (listVoca?.length === 8 || listVocaTwo?.length === 8) {
       setListVocaTestCurrent(listVoca)
       setListVocaTestCurrent2(listVocaTwo)
-    }
+    
   }
 
   // console.log('listVocaTestCurrent >>>', listVocaTestCurrent[0])
@@ -86,7 +86,7 @@ const ConnectVocaGameScreen = () => {
                         {
                           listVocaTestCurrent?.map((item, index) => {
                             return <TouchableOpacity 
-                            className = {`w-[120px] flex justify-center items-center my-2 h-[40px] ${!!item?.isCorrect ? 'bg-colorBrownSlightLV3' : 'bg-colorBrownDarkLV2'} rounded-md mx-2`}
+                            className = {`w-[140px] flex justify-center items-center my-2 h-[50px] ${!!item?.isCorrect ? 'bg-colorBrownSlightLV3' : 'bg-colorBrownDarkLV2'} rounded-md mx-2`}
                             onPress={() => setChooseOne(item)} 
                             key={index}>
                               <Text className='text-colorWhite text-[20px]'>{item?.eng}</Text>
@@ -98,7 +98,7 @@ const ConnectVocaGameScreen = () => {
                         {
                           listVocaTestCurrent2?.map((item, index) => {
                             return <TouchableOpacity 
-                            className = {`w-[120px] flex justify-center items-center my-2 h-[40px] ${!!item?.isCorrect ? 'bg-colorBrownSlightLV3' : 'bg-colorBrownDarkLV2'} rounded-md mx-2`}
+                            className = {`w-[140px] flex justify-center items-center my-2 h-[50px] ${!!item?.isCorrect ? 'bg-colorBrownSlightLV3' : 'bg-colorBrownDarkLV2'} rounded-md mx-2`}
                             onPress={() => setChooseTwo(item)}
                             key={index}>
                               <Text className='text-colorWhite text-[20px]'>{item?.vie}</Text>

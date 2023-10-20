@@ -37,11 +37,11 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
 
     const handleSubmitRegister = async () => {
       try {
-        console.log('data >>>', dataForm)
+        // console.log('data >>>', dataForm)
         setIsLoading(true)
         const response = await fetchRegister(dataForm)
         setIsLoading(false)
-        console.log('response >>>', response)
+        // console.log('response >>>', response)
         if (+response['status'] === 0) {
           setStateRegister(true)
         }
@@ -103,7 +103,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
       useEffect(() => {
         (async() => {
             if (isRememberAuth === true) {
-              console.log('ghi nhớ')
+              // console.log('ghi nhớ')
               setDataForm({
                 email: data_user_login?.email,
                 password: dataUser?.password,
@@ -114,7 +114,7 @@ const FormInput = ({isRegister, toLogin, setShowLogo}) => {
             })
             }
             else if (isRememberAuth === false) {
-              console.log('không ghi nhớ')
+              // console.log('không ghi nhớ')
               setDataForm({
                 email: '',
                 password: '',

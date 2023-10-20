@@ -6,5 +6,6 @@ export const SCREEN_NAME = {
     POST: 'Post',
     TEST: 'Test',
     CHART: 'Chart',
+    ITEM_VOCA: 'ItemVoca',
 };
   

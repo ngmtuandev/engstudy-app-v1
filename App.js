@@ -16,6 +16,7 @@ import PostScreen from './src/screens/PostScreen';
 import TestVocaScreen from './src/screens/TestVocaScreen';
 import ChartScreen from './src/screens/ChartScreen';
 import { SCREEN_NAME } from './src/constants/screens';
+import LearnItemVocaOne from './src/screens/LearnItemVocaOne';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -44,6 +45,7 @@ useEffect(() => {
                 <Stack.Screen name={SCREEN_NAME.POST} component={PostScreen} options={{headerShown: false}}/>
                 <Stack.Screen name={SCREEN_NAME.TEST} component={TestVocaScreen} options={{headerShown: false}}/>
                 <Stack.Screen name={SCREEN_NAME.CHART} component={ChartScreen} options={{headerShown: false}}/>
+                <Stack.Screen name={SCREEN_NAME.ITEM_VOCA} component={LearnItemVocaOne} options={{headerShown: false}}/>
               </Stack.Navigator> 
             }
           </NavigationContainer>

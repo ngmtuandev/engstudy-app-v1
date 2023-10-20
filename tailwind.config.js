@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     padding: {
       form: "10px",
+      screen: "20px"
     },
     extend: {
       backgroundColor: {

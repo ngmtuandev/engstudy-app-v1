@@ -1,9 +1,11 @@
-import { View, Text, ImageBackground, ScrollView } from 'react-native'
+import { View, Text, ImageBackground, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BottomTab from '../component/BottomTab'
 import { useRoute } from '@react-navigation/native';
 import { useVocabulary } from '../hooks/useVocabulary';
 import { useSelector } from 'react-redux';
+import NavigateTabTop from '../component/NavigateTabTop';
+import { SCREEN_NAME } from '../constants/screens';
 const LearnVocaScreen = () => {
   const route = useRoute()
   const currentScreenName = route.name;
@@ -26,7 +28,11 @@ const LearnVocaScreen = () => {
       <View className='w-screen relative  bg-red-400'>
             <ImageBackground source={require('../assets/bg.png')} resizeMode="cover" 
             className=' w-screen h-screen'>
-                <View className='flex-col flex-1 justify-center items-center mt-[115px]'>
+                <View className='flex-row justify-between px-form mt-10'>
+                  <NavigateTabTop text={'Kiểm tra từ vựng'}></NavigateTabTop>
+                  <NavigateTabTop navigate = {SCREEN_NAME.ITEM_VOCA} text={'Học từ mới'}></NavigateTabTop>
+                </View>
+                <View className='flex-col flex-1 justify-center items-center mt-[60px]'>
                   <ScrollView showsVerticalScrollIndicator={false}>
                     {
                       listVoca?.map(el => {

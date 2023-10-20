@@ -26,7 +26,32 @@ export function useVocabulary() {
   return datavoca
   }
 
+  const fetchListVocabularyNoLearned = (token) => 
+  {
+    const datavocalearning = axios({
+    url: '/vocabulary/voca-learn',
+    method: "get",
+    headers: {
+      author: `Bearer ${JSON.parse(token)}`
+    }
+  })
+  return datavocalearning
+  }
+
+
+  const fetchLearnVoca = (voca, token) => 
+  {
+    const learnVoca = axios({
+    url:`/vocabulary/${voca}`,
+    method: "put",
+    headers: {
+      author: `Bearer ${JSON.parse(token)}`
+    }
+  })
+  return learnVoca
+  }
+
   return {
-    fetchAddVocabulary,fetchListVocabulary
+    fetchAddVocabulary,fetchListVocabulary, fetchListVocabularyNoLearned, fetchLearnVoca
   };
 }

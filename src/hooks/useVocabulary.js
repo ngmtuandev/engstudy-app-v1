@@ -39,6 +39,19 @@ export function useVocabulary() {
   }
 
 
+  const fetchListVocabularyLearnedTest = (token) => 
+  {
+    const datavocaleared = axios({
+    url: '/vocabulary/finish-voca',
+    method: "get",
+    headers: {
+      author: `Bearer ${JSON.parse(token)}`
+    }
+  })
+  return datavocaleared
+  }
+
+
   const fetchLearnVoca = (voca, token) => 
   {
     const learnVoca = axios({
@@ -52,6 +65,6 @@ export function useVocabulary() {
   }
 
   return {
-    fetchAddVocabulary,fetchListVocabulary, fetchListVocabularyNoLearned, fetchLearnVoca
+    fetchAddVocabulary,fetchListVocabulary, fetchListVocabularyNoLearned, fetchLearnVoca, fetchListVocabularyLearnedTest
   };
 }

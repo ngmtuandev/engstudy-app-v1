@@ -7,5 +7,7 @@ export const SCREEN_NAME = {
     TEST: 'Test',
     CHART: 'Chart',
     ITEM_VOCA: 'ItemVoca',
+    OPTION_VOCA: 'OptionVoca',
+    CONNECT_VOCA: 'ConnectVoca',
 };
   

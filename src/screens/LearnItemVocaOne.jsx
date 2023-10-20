@@ -62,7 +62,7 @@ const LearnItemVocaOne = () => {
   const convertPercent = (number) => {
     return ((number * 320) / 10)
   }
-  console.log(convertPercent(vocabularyCurrent?.progress))
+
   return (
     <View>
       <View className='w-screen relative h-screen  bg-red-400'>
@@ -81,8 +81,14 @@ const LearnItemVocaOne = () => {
                             {vocabularyCurrent?.vie}
                         </Text>
                     </View>
-                    <View className='w-[320px] h-[200px] flex justify-center'>
-                        <Text className={`${vocabularyCurrent ? 'text-[50px]' : ' text-[25px]'} text-colorBrownSlightLV3 font-bold`}>{
+                    <View>
+                      <Text>
+                        {/* {vocabularyCurrent} */}
+                      </Text>
+                    </View>
+                    <View className='w-[150px] h-[200px] items-center flex justify-center'>
+                        <Text className={`${vocabularyCurrent ? 'text-[50px]' : ' text-[25px]'} 
+                         text-colorBrownSlightLV3 font-bold`}>{
                         vocabularyCurrent ? `${(+vocabularyCurrent?.progress / 10) * 10}0%`: 'Bạn đã hoàn thành bộ từ vựng này'
                       }</Text>
                     </View>

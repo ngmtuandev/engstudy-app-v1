@@ -10,11 +10,11 @@ const LearnVocaScreen = () => {
   const route = useRoute()
   const currentScreenName = route.name;
   const [listVoca, setListVoca] = useState([])
-  const {fetchListVocabulary} = useVocabulary()
+    const {fetchListVocabulary} = useVocabulary()
   const {token} = useSelector(state => state.auth)
   useEffect(() => {
     (async() => {
-      const listVocabulary = await fetchListVocabulary(token)
+            const listVocabulary = await fetchListVocabulary(token)
       if (listVocabulary) {
         setListVoca(listVocabulary?.data)
       }
@@ -33,7 +33,7 @@ const LearnVocaScreen = () => {
                   <NavigateTabTop navigate = {SCREEN_NAME.ITEM_VOCA} text={'Học từ mới'}></NavigateTabTop>
                 </View>
                 <View className='flex-col flex-1 justify-center items-center mt-[60px]'>
-                  <ScrollView showsVerticalScrollIndicator={false}>
+                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                       listVoca?.map(el => {
                         return <View className='mb-6' key={el?._id}>
@@ -47,6 +47,7 @@ const LearnVocaScreen = () => {
                       })
                     }
                   </ScrollView>
+                  
                   <BottomTab currentScreenName={currentScreenName}></BottomTab>
                 </View>
             </ImageBackground>

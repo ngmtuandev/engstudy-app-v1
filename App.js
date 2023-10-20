@@ -17,6 +17,8 @@ import TestVocaScreen from './src/screens/TestVocaScreen';
 import ChartScreen from './src/screens/ChartScreen';
 import { SCREEN_NAME } from './src/constants/screens';
 import LearnItemVocaOne from './src/screens/LearnItemVocaOne';
+import ConnectVocaGameScreen from './src/screens/ConnectVocaGameScreen';
+import OptionVocaScreen from './src/screens/OptionVocaScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -46,6 +48,8 @@ useEffect(() => {
                 <Stack.Screen name={SCREEN_NAME.TEST} component={TestVocaScreen} options={{headerShown: false}}/>
                 <Stack.Screen name={SCREEN_NAME.CHART} component={ChartScreen} options={{headerShown: false}}/>
                 <Stack.Screen name={SCREEN_NAME.ITEM_VOCA} component={LearnItemVocaOne} options={{headerShown: false}}/>
+                <Stack.Screen name={SCREEN_NAME.CONNECT_VOCA} component={ConnectVocaGameScreen} options={{headerShown: false}}/>
+                <Stack.Screen name={SCREEN_NAME.OPTION_VOCA} component={OptionVocaScreen} options={{headerShown: false}}/>
               </Stack.Navigator> 
             }
           </NavigationContainer>

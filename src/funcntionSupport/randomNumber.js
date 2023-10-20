@@ -3,7 +3,7 @@ export default function randomNumber(count, max) {
 
   for (let i = 0; i < count; i++) {
     const randomNumber = Math.floor(Math.random() * max);
-        randomNumbers.push(randomNumber);
+    randomNumbers.push(randomNumber);
   }
 
   return randomNumbers;

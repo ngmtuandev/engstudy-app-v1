@@ -5,8 +5,9 @@ const vocabularyController = {
   createVoca: asyncHandler(async (req, res) => {
     const {id} = req.auth
     const {eng, vie} = req.body
-    console.log('id', id,  'eng vie', eng, vie)
+    console.log('Check data backend','id', id,  'eng vie', eng, vie)
     if (!eng || !vie) {
+        console.log('not full field')
         res.status(401).json({
             status: 1,
             mess: 'Bạn không  được bỏ trống thống tin từ vựng'
@@ -14,8 +15,9 @@ const vocabularyController = {
     }
     else {
         const findVocaExist = await Vocabulary.findOne({eng})
-        // console.log('findVocaExist >>>>', findVocaExist)
+        console.log('findVocaExist >>>>')
         if (findVocaExist) {
+            console.log('exist')
             res.status(401).json({
                 status: 1,
                 mess: 'Từ vựng này đã tồn tại'
@@ -23,6 +25,7 @@ const vocabularyController = {
         }
         else {
             const newVoca = await Vocabulary.create({user: id, ...req.body})
+            console.log('add success >>>', newVoca)
             if (newVoca) {
                 res.status(201).json({
                     status: 0,
@@ -61,6 +64,17 @@ const vocabularyController = {
         })
     }
   }),
+  listVocaLearn: asyncHandler (async(req, res) => {
+    const {id} = req.auth
+    const vocaLeaning = await Vocabulary.find({user: id, status: false})
+    if (vocaLeaning) {
+        res.status(200).json({
+            status: 0,
+            mess: 'Danh sách từ vựng chưa thuộc',
+            data: vocaLeaning
+        })
+    }
+  }),
   learnVoca: asyncHandler(async(req, res) => {
     const {eng} = req.params
     const {id} = req.auth
@@ -68,7 +82,7 @@ const vocabularyController = {
     // console.log('Voca current leaning >>>> ', vocaCurrLearn)
     if (vocaCurrLearn) {
         console.log('vocaCurrLearn.progress voca ', eng, 'is >>>', vocaCurrLearn.progress)
-        if (+vocaCurrLearn.progress < 5) {
+        if (+vocaCurrLearn.progress < 10) {
             const learingVoca = await Vocabulary.findOneAndUpdate({user: id, eng}, {progress: +vocaCurrLearn.progress + 1})
             res.status(201).json({
                 status: 0,
@@ -76,7 +90,7 @@ const vocabularyController = {
                 data: learingVoca
             })
         }
-        else if (+vocaCurrLearn.progress === 5) {
+        else if (+vocaCurrLearn.progress === 10) {
             const learingVoca = await Vocabulary.findOneAndUpdate({user: id, eng}, {status: true})
             res.status(201).json({
                 status: 0,

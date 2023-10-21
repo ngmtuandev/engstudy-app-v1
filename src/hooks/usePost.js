@@ -23,9 +23,20 @@ export function usePost() {
   return dataAllPost
   }
 
- 
+  const fetchLikePost = (id, token) => 
+  {
+    const data = axios({
+    url: `/post/like/${id}`,
+    method: "put",
+    headers: {
+      author: `Bearer ${JSON.parse(token)}`
+    }
+
+  })
+  return data
+  }
 
   return {
-    fetchCreatePost, fetchGetAllPost
+    fetchCreatePost, fetchGetAllPost, fetchLikePost
   };
 }

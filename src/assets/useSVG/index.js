@@ -8,6 +8,11 @@ import FlagVieSVG from "./FlagVieSVG";
 import PlusSVG from "./PlusSVG";
 import CheckSVG from "./CheckSVG";
 import UploadSVG from "./UploadSVG";
+import UserSVG from "./UserSVG";
+import LikeSVG from "./LikeSVG";
+import CommentSVG from "./CommentSVG";
+import ShareSVG from "./ShareSVG";
 
-const SvgIcon = {PostSVG, GraphSVG, StudySVG, TestSVG, AddSVG, FlagEngSVG, FlagVieSVG, PlusSVG, CheckSVG, UploadSVG} 
+const SvgIcon = {PostSVG, GraphSVG, StudySVG, TestSVG, AddSVG, FlagEngSVG, FlagVieSVG, 
+    PlusSVG, CheckSVG, UploadSVG, UserSVG, LikeSVG, CommentSVG, ShareSVG} 
 export default SvgIcon

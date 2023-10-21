@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, ImageBackground, TouchableOpacity, TextInput, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import BottomTab from '../component/BottomTab'
 import { useRoute } from '@react-navigation/native'
@@ -6,18 +6,18 @@ import SvgIcon from '../assets/useSVG'
 import { usePost } from '../hooks/usePost'
 import { useSelector } from 'react-redux'
 import { showAlert } from '../funcntionSupport/showAlert'
+
 const PostScreen = () => {
   const route = useRoute()
   const currentScreenName = route.name;
-  const {UploadSVG} = SvgIcon
+  const {UploadSVG, UserSVG, LikeSVG, CommentSVG, ShareSVG} = SvgIcon
   const [isShowPost, setIsShowPost] = useState(false)
   const [dataInput, setDataInput] = useState({
     text : ''
   })
   const [listAllPost, setListAllPost] = useState([])
 
-
-  const { fetchCreatePost, fetchGetAllPost } = usePost()
+  const { fetchCreatePost, fetchGetAllPost, fetchLikePost } = usePost()
 
   const {token} = useSelector(state => state.auth)
 
@@ -36,9 +36,26 @@ const PostScreen = () => {
     const newPost = await fetchCreatePost(dataInput, token)
     if (+newPost?.status === 0) {
       showAlert('Bạn đã tạo bài đăng thành công', 'Mời bạn tiếp tục sử dụng ứng dụng')
+      const allListPost = await fetchGetAllPost()
+      // console.log('allListPost : >>>>>', allListPost)
+      if (allListPost) {
+        setListAllPost(allListPost?.data)
+      }
     }
   }
-  console.log('listAllPost >>>>>', listAllPost)
+  // console.log('listAllPost >>>>>', listAllPost[0])
+
+  const handleLikePost = async (id) => {
+    console.log('id post new >>>>', id)
+    const likePostItem = await fetchLikePost(id, token)
+    console.log('like post >>>>', likePostItem)
+    const allListPost = await fetchGetAllPost()
+      // console.log('allListPost : >>>>>', allListPost)
+      if (allListPost) {
+        setListAllPost(allListPost?.data)
+      }
+  }
+
   return (
     <View>
       <View className='w-screen relative h-screen  bg-red-400'>
@@ -73,15 +90,49 @@ const PostScreen = () => {
                         </View>
                       </TouchableOpacity>
                     </View>
-                    <View className='mt-10'>
+                    <ScrollView className='mt-10 mb-24' showsVerticalScrollIndicator={false}>
                       {
-                        listAllPost?.map(item => {
-                          return <View className='w-[380px] min-h-[50px] bg-colorBrownSlightLV2 mb-3'>
-                            <Text>{item?.text}</Text>
+                        listAllPost?.map((item, index) => {
+                          return <View key={index} className='w-[380px] p-[10px] rounded-xl shadow-md
+                          min-h-[180px] bg-colorBrownSlightLV2 mb-3'>
+                            <View>
+                              <View className='flex-row flex items-center mt-2'>
+                                <UserSVG width="40" height="40" className='mr-2'></UserSVG>
+                                <View>
+                                  <Text className='text-[20px] font-bold'>{item?.user?.firstName + ' ' + item?.user?.lastName}</Text>
+                                  <Text className='text-[14px] text-gray-900'>{item?.updatedAt}</Text>
+                                </View>
+                              </View>
+                            </View>
+                            <Text className='text-[24px] mt-2 text-gray-900'>{item?.text}</Text>
+                            <View className='flex-row my-1'>
+                              <TouchableOpacity 
+                              onPress={() => handleLikePost(item?._id)}
+                              className='mr-6 flex justify-center items-center'>
+                                <LikeSVG width="30" height="30"></LikeSVG>
+                                <Text>{item?.likes.length} lượt thích</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity className='mr-6 flex justify-center items-center'>
+                                <CommentSVG width="30" height="30"></CommentSVG>
+                                <Text>0 bình luận</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity className='mr-6 flex justify-center items-center'>
+                                <ShareSVG width="30" height="30"></ShareSVG>
+                                <Text>0 chia sẻ</Text>
+                              </TouchableOpacity>
+                            </View>
+                            <View className='my-2 flex'>
+                              <TextInput className='w-[80%] rounded-md h-[50px] px-form border border-colorBrownDarkLV2'
+                              placeholder='Nhập bình luận của bạn'
+                              ></TextInput>
+                              <TouchableOpacity className='w-[80px] my-4 rounded-2xl h-[30px] flex justify-center items-center bg-black'>
+                                <Text className=' text-[14px] text-colorWhite'>Bình luận</Text>
+                              </TouchableOpacity>
+                            </View>
                           </View>
                         })
                       }
-                    </View>
+                    </ScrollView>
                   </View>
                   <BottomTab currentScreenName={currentScreenName}></BottomTab>
                 </View>

@@ -35,6 +35,17 @@ const ChartScreen = () => {
                   {/* <VictoryChart width={350} theme={VictoryTheme.material}>
                     <VictoryBar data={data} x="quarter" y="earnings" />
                   </VictoryChart> */}
+                  <View className='flex-col flex-1 mt-16'>
+                  <View className=' bg-slate-800'>
+                    <TouchableOpacity onPress={() => {
+                        dispatch(logout())
+                        navigation.navigate('Login')
+                    }}>
+                      <Text>Logout</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <BottomTab currentScreenName = {currentScreenName}></BottomTab>
+                </View>
             </ImageBackground>
         
         </View>
@@ -46,16 +57,16 @@ const ChartScreen = () => {
 
 
 
-// <View className='flex-col flex-1 mt-16'>
-//                   <View className=' bg-slate-800'>
-//                     <TouchableOpacity onPress={() => {
-//                         dispatch(logout())
-//                         navigation.navigate('Login')
-//                     }}>
-//                       <Text>Logout</Text>
-//                     </TouchableOpacity>
-//                   </View>
-//                   <BottomTab currentScreenName = {currentScreenName}></BottomTab>
-//                 </View>
+                <View className='flex-col flex-1 mt-16'>
+                  <View className=' bg-slate-800'>
+                    <TouchableOpacity onPress={() => {
+                        dispatch(logout())
+                        navigation.navigate('Login')
+                    }}>
+                      <Text>Logout</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <BottomTab currentScreenName = {currentScreenName}></BottomTab>
+                </View>
 
 export default ChartScreen

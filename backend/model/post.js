@@ -1,27 +1,15 @@
 const mongoose = require("mongoose");
 
-const vocabularyChema = new mongoose.Schema(
+const postChema = new mongoose.Schema(
   {
-    eng: {
+    text: {
       type: String,
       require: true,
     },
-    vie: {
-      type: String,
-      require: true,
+    likes: {
+      type: Array,
     },
-    progress: {
-      type: Number,
-      default: 1
-    },
-    status: {
-      type: Boolean,
-      default: false
-    },
-    type: {
-      type: String,
-    },
-    example: {
+    location: {
       type: String,
     },
     user: {
@@ -34,4 +22,4 @@ const vocabularyChema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Vocabulary", vocabularyChema);
+module.exports = mongoose.model("Post", postChema);

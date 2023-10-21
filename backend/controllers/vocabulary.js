@@ -56,6 +56,7 @@ const vocabularyController = {
   getAllVocaUser: asyncHandler(async(req, res) => {
     const {id} = req.auth
     const allVoca = await Vocabulary.find({user: id})
+    console.log(allVoca)
     if (allVoca) {
         res.status(200).json({
             status: 0,

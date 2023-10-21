@@ -39,7 +39,7 @@ const AddVocaScreen = ({navigation}) => {
           },
           {
             text: 'Thêm từ vựng',
-            // onPress: onDelete,
+            //  onPress: onDelete,
             style: 'destructive',
           },
         ],
@@ -133,6 +133,17 @@ const AddVocaScreen = ({navigation}) => {
                         {/* <View className='w-[70px] bg-red-700'><Text>dsadsadsad</Text></View> */}
                     </View>
                   </View>
+                   <View className='flex-col flex-1 mt-16'>
+                   <View className=' bg-slate-800'>
+                     <TouchableOpacity onPress={() => {
+                         dispatch(logout())
+                         navigation.navigate('Login')
+                     }}>
+                       <Text>Logout</Text>
+                     </TouchableOpacity>
+                   </View>
+                   <BottomTab currentScreenName = {currentScreenName}></BottomTab>
+                 </View>
                   <BottomTab onAddVocabulary = {handleAddVocabulary} currentScreenName={currentScreenName}></BottomTab>
                 </View>
             </ImageBackground>

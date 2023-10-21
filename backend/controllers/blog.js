@@ -30,7 +30,7 @@ const PostController = {
         }
     }),
     getAllPost: asyncHandler(async(req, res) => {
-        const allPost = await Post.find()
+        const allPost = await Post.find().populate('user')
         console.log(allPost)
         if(allPost) {
             res.status(200).json({

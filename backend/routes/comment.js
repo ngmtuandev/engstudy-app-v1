@@ -5,7 +5,6 @@ const verifyAdmin = require("../middeware/verifyAdmin");
 const router = express.Router();
 
 router.post("/new-comment/:pid", verifyToken, commentController.createComment);
-router.get("/allComment/",  commentController.getAllCommenItemPost);
-
+router.get("/allComment/", commentController.getAllCommenItemPost);
 
 module.exports = router;

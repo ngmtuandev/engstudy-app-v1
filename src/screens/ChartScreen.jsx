@@ -55,18 +55,4 @@ const ChartScreen = () => {
 }
 
 
-
-
-                <View className='flex-col flex-1 mt-16'>
-                  <View className=' bg-slate-800'>
-                    <TouchableOpacity onPress={() => {
-                        dispatch(logout())
-                        navigation.navigate('Login')
-                    }}>
-                      <Text>Logout</Text>
-                    </TouchableOpacity>
-                  </View>
-                  <BottomTab currentScreenName = {currentScreenName}></BottomTab>
-                </View>
-
 export default ChartScreen

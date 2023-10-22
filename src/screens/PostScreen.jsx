@@ -36,6 +36,11 @@ const PostScreen = () => {
 
   useEffect(() => {
     (async () => {
+      showAlert(
+        "Vì một cộng đồng cải thiện Tiếng Anh",
+        "Hy vọng các bạn hạn chế bình luận, đăng bài sử dụng Tiếng Việt để tránh bị khóa tài khoản. EngStudy xin lỗi vì sự bất tiện này.",
+        "Đồng ý"
+      );
       const allListPost = await fetchGetAllPost();
       // console.log('allListPost : >>>>>', allListPost)
       if (allListPost) {

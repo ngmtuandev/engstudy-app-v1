@@ -9,6 +9,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
 import BottomTab from "../component/BottomTab";
@@ -16,20 +17,27 @@ import { useRoute } from "@react-navigation/native";
 import SvgIcon from "../assets/useSVG";
 const CATEGORY_VOCABULARY = ["Adj", "Adv", "Noun", "Verb"];
 import { useVocabulary } from "../hooks/useVocabulary";
-const AddVocaScreen = ({ navigation }) => {
+import MyDrawer from "../navigations/MyDrawer";
+import { SCREEN_NAME } from "../constants/screens";
+import ProfileScreen from "./ProfileScreen";
+import TestVocaScreen from "./TestVocaScreen";
+import { useNavigation } from "@react-navigation/native";
+
+const AddVocaScreen = () => {
   const [eng, setEng] = useState("");
   const [vie, setVie] = useState("");
   const [showEng, setShowEng] = useState(false);
   const [showVie, setShowVie] = useState(false);
   const [example, setExample] = useState("");
   const [category, setCategory] = useState("");
-
+  const Drawer = createDrawerNavigator();
   const route = useRoute();
+  const navigation = useNavigation();
   const currentScreenName = route.name;
   const dispatch = useDispatch();
   const { dataUser, token } = useSelector((state) => state.auth);
   console.log("dataUser", dataUser);
-  const { FlagEngSVG, FlagVieSVG, PlusSVG } = SvgIcon;
+  const { FlagEngSVG, FlagVieSVG, PlusSVG, MenuSVG } = SvgIcon;
 
   const { fetchAddVocabulary } = useVocabulary();
 
@@ -51,7 +59,7 @@ const AddVocaScreen = ({ navigation }) => {
     ]);
   };
 
-  const handleAddVocabulary = async () => {
+  const handleAddVocabulary = async ({}) => {
     try {
       const newVocabulary = await fetchAddVocabulary({ eng, vie }, token);
       console.log("new vocabulary >>>>", newVocabulary);
@@ -78,6 +86,15 @@ const AddVocaScreen = ({ navigation }) => {
           resizeMode="cover"
           className=" w-screen h-screen"
         >
+          {/* <MyDrawer></MyDrawer> */}
+          <View className="ml-[85%] mt-5">
+            <TouchableOpacity
+              onPress={() => navigation.openDrawer()}
+              className="mt-6 flex"
+            >
+              <MenuSVG width="45" height="45"></MenuSVG>
+            </TouchableOpacity>
+          </View>
           <View className="flex-col flex-1">
             <View className="flex-col mt-20 justify-center items-center ">
               <View>
@@ -176,16 +193,16 @@ const AddVocaScreen = ({ navigation }) => {
               </View>
             </View>
             <View className="flex-col flex-1 mt-16">
-              <View className=" bg-slate-800">
+              {/* <View className=" bg-slate-800">
                 <TouchableOpacity
                   onPress={() => {
-                    dispatch(logout());
-                    navigation.navigate("Login");
+                    
+                    
                   }}
                 >
                   <Text>Logout</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
               <BottomTab currentScreenName={currentScreenName}></BottomTab>
             </View>
             <BottomTab

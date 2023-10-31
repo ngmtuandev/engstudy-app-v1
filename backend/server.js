@@ -9,14 +9,14 @@ const app = express();
 
 app.use(
   cors({
-    origin: '*',
+    origin: "*",
     methods: ["POST", "PUT", "GET", "DELETE"],
-    credentials: true
+    credentials: true,
   })
-  );
-  
+);
+
 app.use(cookieParser());
-  
+
 const PORT = process.env.PORT || 8888;
 app.use(express.json()); // đọc hiểu data từ client gửi lên theo kiểu json
 app.use(express.urlencoded({ extended: true })); // đọc đc data theo kiểu urlencode : aray, object

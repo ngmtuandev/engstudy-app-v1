@@ -16,6 +16,9 @@ const postChema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
+    img: {
+      type: Array,
+    },
   },
   {
     timestamps: true,

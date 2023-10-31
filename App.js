@@ -49,14 +49,6 @@ export default function App() {
                   tokenLogin ? SCREEN_NAME.ADDVOCA : SCREEN_NAME.LOGIN
                 }
               >
-                {/* <Drawer.Screen
-                  name={SCREEN_NAME.PROFILE}
-                  component={ProfileScreen}
-                />
-                <Drawer.Screen
-                  name={SCREEN_NAME.TEST}
-                  component={TestVocaScreen}
-                /> */}
                 <Stack.Screen
                   name={SCREEN_NAME.ADDVOCA}
                   component={AddVocaScreen}

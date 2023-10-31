@@ -36,7 +36,7 @@ const AddVocaScreen = () => {
   const currentScreenName = route.name;
   const dispatch = useDispatch();
   const { dataUser, token } = useSelector((state) => state.auth);
-  console.log("dataUser", dataUser);
+  // console.log("dataUser", dataUser);
   const { FlagEngSVG, FlagVieSVG, PlusSVG, MenuSVG } = SvgIcon;
 
   const { fetchAddVocabulary } = useVocabulary();
@@ -59,8 +59,12 @@ const AddVocaScreen = () => {
     ]);
   };
 
-  const handleAddVocabulary = async ({}) => {
+  const handleAddVocabulary = async () => {
     try {
+      // console.log(token);
+      // return;
+      // console.log("{ eng, vie } >>>", { eng, vie });
+      // return;
       const newVocabulary = await fetchAddVocabulary({ eng, vie }, token);
       console.log("new vocabulary >>>>", newVocabulary);
       if (+newVocabulary?.status === 0) {

@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Button,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import BottomTab from "../component/BottomTab";
@@ -14,7 +16,7 @@ import { usePost } from "../hooks/usePost";
 import { useComment } from "../hooks/useComment";
 import { useSelector } from "react-redux";
 import { showAlert } from "../funcntionSupport/showAlert";
-
+import * as ImagePicker from "expo-image-picker";
 const PostScreen = () => {
   const route = useRoute();
   const currentScreenName = route.name;
@@ -29,9 +31,10 @@ const PostScreen = () => {
   const [showComment, setShowComment] = useState(false);
   const [commentMatchPost, setCommentMatchPost] = useState([]);
 
-  const { fetchCreatePost, fetchGetAllPost, fetchLikePost } = usePost();
+  const { fetchCreatePost, fetchGetAllPost, fetchLikePost, fetchPostImg } =
+    usePost();
   const { fetchCreateComment, fetchAllCommentItem } = useComment();
-
+  let selectedImage = null;
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -50,7 +53,18 @@ const PostScreen = () => {
   }, []);
 
   const handlePost = async () => {
-    const newPost = await fetchCreatePost(dataInput, token);
+    const newPostData = new FormData();
+    newPostData.append("text", dataInput.text); // Thêm dữ liệu văn bản
+
+    if (selectedImage) {
+      newPostData.append("image", {
+        uri: selectedImage.assets[0].uri,
+        name: "image.jpg",
+        type: "image/jpg",
+      });
+    }
+
+    const newPost = await fetchCreatePost(newPostData, token);
     if (+newPost?.status === 0) {
       showAlert(
         "Bạn đã tạo bài đăng thành công",
@@ -64,6 +78,8 @@ const PostScreen = () => {
     }
   };
   // console.log('listAllPost >>>>>', listAllPost[0])
+
+  /// Test Function
 
   const handleLikePost = async (id) => {
     console.log("id post new >>>>", id);
@@ -93,7 +109,30 @@ const PostScreen = () => {
     setShowComment(!showComment);
   };
 
-  console.log(commentMatchPost);
+  // console.log("listAllPost : ", listAllPost[1]);
+
+  const selectImage = async () => {
+    let rs = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!rs.canceled) {
+      // formData.append("image", {
+      //   uri: rs.assets[0].uri,
+      //   name: "image.jpg",
+      //   type: "image/jpg",
+      // });
+
+      /// Test
+      selectedImage = rs;
+
+      // const postImg = await fetchPostImg(id, token, formData);
+      // console.log("postImg", postImg);
+    }
+  };
 
   return (
     <View>
@@ -117,6 +156,9 @@ const PostScreen = () => {
                         text-[18px] px-[10px] mr-2 bg-colorWhite shadow-xl text-text-gray"
                         placeholder="Nội dung bài viết"
                       ></TextInput>
+                      <View className="mt-8">
+                        <Button title="Chọn hình ảnh" onPress={selectImage} />
+                      </View>
                     </View>
                   ) : (
                     ""
@@ -179,6 +221,12 @@ const PostScreen = () => {
                       <Text className="text-[22px] mt-2 text-gray-900">
                         {item?.text}
                       </Text>
+                      {item?.img[0] && (
+                        <Image
+                          className="w-[100%] h-[250px] my-3"
+                          source={{ uri: item?.img[0] }}
+                        ></Image>
+                      )}
                       <View className="flex-row my-1">
                         <TouchableOpacity
                           onPress={() => handleLikePost(item?._id)}

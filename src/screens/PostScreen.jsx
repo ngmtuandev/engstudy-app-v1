@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 import { showAlert } from "../funcntionSupport/showAlert";
 import * as ImagePicker from "expo-image-picker";
 import format_date from "../funcntionSupport/formatDate";
+import { Audio } from "expo-av";
+
 const PostScreen = () => {
   const route = useRoute();
   const currentScreenName = route.name;
@@ -31,6 +33,7 @@ const PostScreen = () => {
   const [allComment, setAllComment] = useState([]);
   const [showComment, setShowComment] = useState(false);
   const [commentMatchPost, setCommentMatchPost] = useState([]);
+  const [sound, setSound] = useState();
 
   const { fetchCreatePost, fetchGetAllPost, fetchLikePost, fetchPostImg } =
     usePost();
@@ -51,6 +54,11 @@ const PostScreen = () => {
         const dataListPost = allListPost?.data.reverse();
         setListAllPost(dataListPost);
       }
+      const { sound } = await Audio.Sound.createAsync(
+        require("../assets/audio/lofi.mp3")
+      );
+      // setSound(sound);
+      await sound.playAsync();
     })();
   }, []);
 
@@ -138,6 +146,22 @@ const PostScreen = () => {
 
   // console.log("listAllPost >>>", listAllPost);
 
+  // async function playSound() {
+  //   const { sound } = await Audio.Sound.createAsync(
+  //     require("../assets/audio/lofi.mp3")
+  //   );
+  //   // setSound(sound);
+  //   await sound.playAsync();
+  // }
+
+  // useEffect(() => {
+  //   return sound
+  //     ? () => {
+  //         sound.unloadAsync();
+  //       }
+  //     : undefined;
+  // }, [sound]);
+
   return (
     <View>
       <View className="w-screen relative h-screen  bg-red-400">
@@ -148,6 +172,9 @@ const PostScreen = () => {
         >
           <View className="flex-row flex-1 justify-center">
             <View className="flex-col">
+              {/* <View>
+                <Button title="Phát âm thanh" onPress={playSound} />
+              </View> */}
               <View className="flex-row mt-16">
                 {
                   isShowPost ? (

@@ -4,6 +4,7 @@ import randomNumber from "../funcntionSupport/randomNumber";
 import { useSelector } from "react-redux";
 import { useVocabulary } from "../hooks/useVocabulary";
 import Modal from "react-native-modal";
+import { Audio } from "expo-av";
 
 const _ = require("lodash");
 
@@ -18,7 +19,7 @@ const ConnectVocaGameScreen = () => {
   const [listVocaTestCurrent2, setListVocaTestCurrent2] = useState([]);
   const [chooseOne, setChooseOne] = useState("");
   const [chooseTwo, setChooseTwo] = useState("");
-  const [isShowErr, setIsShowErr] = useState(false);
+  // const [isShowErr, setIsShowErr] = useState(false);
   const arrList = useRef();
   const arrList2 = useRef();
   const { token } = useSelector((state) => state.auth);
@@ -32,14 +33,14 @@ const ConnectVocaGameScreen = () => {
     })();
   }, []);
   useEffect(() => {
-    setIsShowErr(false);
+    // setIsShowErr(false);
     arrList.current = randomNumber(8, listVoCaTest?.length);
     arrList2.current = _.shuffle(arrList.current);
   }, [listVoCaTest]);
 
   const handleStart = () => {
     setIsStart(true);
-    setIsShowErr(false);
+    // setIsShowErr(false);
     let listVoca = [];
     let listVocaTwo = [];
     arrList.current?.map((item) => {
@@ -53,9 +54,13 @@ const ConnectVocaGameScreen = () => {
   };
 
   useEffect(() => {
-    setIsShowErr(false);
     if (chooseOne?.vie === chooseTwo?.vie) {
-      setIsShowErr(false);
+      (async () => {
+        const { sound } = await Audio.Sound.createAsync(
+          require("../assets/audio/congratulation.mp3")
+        );
+        await sound.playAsync();
+      })();
       const objChooseOne = listVocaTestCurrent.find(
         (item) => item?._id === chooseOne?._id
       );
@@ -67,10 +72,7 @@ const ConnectVocaGameScreen = () => {
         objChooseTwo.isCorrect = true;
       }
     } else {
-      setTimeout(() => {
-        setIsShowErr(true);
-      }, 1000);
-      setIsShowErr(false);
+      return;
     }
   }, [chooseOne, chooseTwo]);
 
@@ -100,13 +102,13 @@ const ConnectVocaGameScreen = () => {
           className=" w-screen h-screen"
         >
           <View className="flex-col flex-1 justify-center items-center mt-[20px]">
-            {isShowErr ? (
+            {/* {isShowErr ? (
               <Text className="mb-2 text-[16px] text-red-600 font-semibold">
                 Vui lòng chọn từ phù hợp
               </Text>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             {isStart ? (
               <View className="flex-col justify-center items-center">
                 <View className="flex-row">
@@ -120,7 +122,7 @@ const ConnectVocaGameScreen = () => {
                               : "bg-colorBrownDarkLV2"
                           } rounded-md mx-2`}
                           onPress={() => {
-                            setIsShowErr(false);
+                            // setIsShowErr(false);
                             setChooseOne(item);
                           }}
                           key={index}

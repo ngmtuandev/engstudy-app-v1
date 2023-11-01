@@ -7,8 +7,9 @@ import {
   Pressable,
   TextInput,
   Alert,
+  Button,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
@@ -22,7 +23,7 @@ import { SCREEN_NAME } from "../constants/screens";
 import ProfileScreen from "./ProfileScreen";
 import TestVocaScreen from "./TestVocaScreen";
 import { useNavigation } from "@react-navigation/native";
-
+import { Audio } from "expo-av";
 const AddVocaScreen = () => {
   const [eng, setEng] = useState("");
   const [vie, setVie] = useState("");
@@ -36,7 +37,6 @@ const AddVocaScreen = () => {
   const currentScreenName = route.name;
   const dispatch = useDispatch();
   const { dataUser, token } = useSelector((state) => state.auth);
-  // console.log("dataUser", dataUser);
   const { FlagEngSVG, FlagVieSVG, PlusSVG, MenuSVG } = SvgIcon;
 
   const { fetchAddVocabulary } = useVocabulary();
@@ -82,6 +82,9 @@ const AddVocaScreen = () => {
       console.log(error);
     }
   };
+
+ 
+
   return (
     <View>
       <View className="w-screen relative h-screen  bg-red-400">
@@ -101,6 +104,9 @@ const AddVocaScreen = () => {
           </View>
           <View className="flex-col flex-1">
             <View className="flex-col mt-20 justify-center items-center ">
+              {/* <View>
+                <Button title="Phát âm thanh" onPress={playSound} />
+              </View> */}
               <View>
                 <Text className="mb-2 text-colorBrownDarkLV2 font-bold text-[18px]">
                   Từ loại
@@ -197,16 +203,6 @@ const AddVocaScreen = () => {
               </View>
             </View>
             <View className="flex-col flex-1 mt-16">
-              {/* <View className=" bg-slate-800">
-                <TouchableOpacity
-                  onPress={() => {
-                    
-                    
-                  }}
-                >
-                  <Text>Logout</Text>
-                </TouchableOpacity>
-              </View> */}
               <BottomTab currentScreenName={currentScreenName}></BottomTab>
             </View>
             <BottomTab
@@ -216,6 +212,7 @@ const AddVocaScreen = () => {
           </View>
         </ImageBackground>
       </View>
+
       <Text>AddVocaScreen</Text>
     </View>
   );

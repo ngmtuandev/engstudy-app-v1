@@ -24,6 +24,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import ProfileScreen from "./src/screens/ProfileScreen";
 import { logout } from "./src/store/authSlice";
 import LogoutScreen from "./src/screens/LogoutScreen";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 export default function App() {
@@ -44,14 +45,15 @@ export default function App() {
         <View className="flex-1">
           <NavigationContainer>
             {
-              <Drawer.Navigator
-                initialRouteName={
-                  tokenLogin ? SCREEN_NAME.ADDVOCA : SCREEN_NAME.LOGIN
-                }
-              >
+              <Drawer.Navigator initialRouteName={SCREEN_NAME.WELCOME}>
                 <Stack.Screen
                   name={SCREEN_NAME.ADDVOCA}
                   component={AddVocaScreen}
+                  options={{ headerShown: false }}
+                ></Stack.Screen>
+                <Stack.Screen
+                  name={SCREEN_NAME.WELCOME}
+                  component={WelcomeScreen}
                   options={{ headerShown: false }}
                 ></Stack.Screen>
                 <Stack.Screen

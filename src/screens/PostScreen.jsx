@@ -17,6 +17,7 @@ import { useComment } from "../hooks/useComment";
 import { useSelector } from "react-redux";
 import { showAlert } from "../funcntionSupport/showAlert";
 import * as ImagePicker from "expo-image-picker";
+import format_date from "../funcntionSupport/formatDate";
 const PostScreen = () => {
   const route = useRoute();
   const currentScreenName = route.name;
@@ -47,7 +48,8 @@ const PostScreen = () => {
       const allListPost = await fetchGetAllPost();
       // console.log('allListPost : >>>>>', allListPost)
       if (allListPost) {
-        setListAllPost(allListPost?.data);
+        const dataListPost = allListPost?.data.reverse();
+        setListAllPost(dataListPost);
       }
     })();
   }, []);
@@ -73,7 +75,7 @@ const PostScreen = () => {
       const allListPost = await fetchGetAllPost();
       // console.log('allListPost : >>>>>', allListPost)
       if (allListPost) {
-        setListAllPost(allListPost?.data);
+        setListAllPost(allListPost?.data?.reverse());
       }
     }
   };
@@ -88,7 +90,7 @@ const PostScreen = () => {
     const allListPost = await fetchGetAllPost();
     // console.log('allListPost : >>>>>', allListPost)
     if (allListPost) {
-      setListAllPost(allListPost?.data);
+      setListAllPost(allListPost?.data?.reverse());
     }
   };
 
@@ -134,6 +136,8 @@ const PostScreen = () => {
     }
   };
 
+  // console.log("listAllPost >>>", listAllPost);
+
   return (
     <View>
       <View className="w-screen relative h-screen  bg-red-400">
@@ -144,7 +148,7 @@ const PostScreen = () => {
         >
           <View className="flex-row flex-1 justify-center">
             <View className="flex-col">
-              <View className="flex-row mt-12">
+              <View className="flex-row mt-16">
                 {
                   isShowPost ? (
                     <View>
@@ -189,7 +193,7 @@ const PostScreen = () => {
                 </TouchableOpacity>
               </View>
               <ScrollView
-                className="mt-10 mb-24"
+                className="mt-6 mb-24"
                 showsVerticalScrollIndicator={false}
               >
                 {listAllPost?.map((item, index) => {
@@ -213,7 +217,7 @@ const PostScreen = () => {
                                 item?.user?.lastName}
                             </Text>
                             <Text className="text-[14px] text-gray-900">
-                              {item?.updatedAt}
+                              {format_date(item?.updatedAt)}
                             </Text>
                           </View>
                         </View>
@@ -273,7 +277,7 @@ const PostScreen = () => {
                                               item?.user?.lastName}
                                           </Text>
                                           <Text className="text-[12px] text-gray-900">
-                                            {item?.updatedAt}
+                                            {format_date(item?.updatedAt)}
                                           </Text>
                                         </View>
                                       </View>
@@ -292,7 +296,7 @@ const PostScreen = () => {
                           className=""
                         >
                           <Text className="my-2 text-[14px]">
-                            Xem tất cả bình luận
+                            Xem bình luận
                           </Text>
                         </TouchableOpacity>
                         <TouchableOpacity

@@ -51,6 +51,7 @@ const ChartScreen = () => {
         setTotalVocaFinish(vocaFinish?.data.length);
       }
       // console.log("vocaFinish >>>>", vocaFinish?.data.length);
+      setDoLearning(totalVoca - totalVocaFinish);
     })();
   }, []);
 
@@ -64,6 +65,7 @@ const ChartScreen = () => {
       // console.log("dttt : ", dt);
     })();
   }, []);
+  console.log("total - finish", totalVoca - totalVocaFinish);
   return (
     <View>
       <View className="w-screen relative h-screen  bg-red-400">
@@ -72,7 +74,7 @@ const ChartScreen = () => {
           resizeMode="cover"
           className=" w-screen h-screen"
         >
-          <View className="flex-col mt-44 items-center flex-1">
+          <View className="flex-col mt-28 items-center flex-1">
             <View className="flex justify-center items-center">
               <Text className="text-[28px] font-bold text-colorBrownDarkLV2 mb-5">
                 Biểu đồ thống kê

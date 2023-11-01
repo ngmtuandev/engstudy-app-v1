@@ -10,4 +10,5 @@ export const SCREEN_NAME = {
   OPTION_VOCA: "OptionVoca",
   CONNECT_VOCA: "ConnectVoca",
   PROFILE: "Profile",
+  WELCOME: "Welcome",
 };

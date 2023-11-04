@@ -8,6 +8,7 @@ import {
   TextInput,
   Alert,
   Button,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -24,16 +25,16 @@ import ProfileScreen from "./ProfileScreen";
 import TestVocaScreen from "./TestVocaScreen";
 import { useNavigation } from "@react-navigation/native";
 import { Audio } from "expo-av";
+import Drawer from "../component/Drawer";
 const AddVocaScreen = () => {
   const [eng, setEng] = useState("");
   const [vie, setVie] = useState("");
   const [showEng, setShowEng] = useState(false);
   const [showVie, setShowVie] = useState(false);
   const [example, setExample] = useState("");
+  const [isShowDrawer, setIsShowDrawer] = useState(false);
   const [category, setCategory] = useState("");
-  const Drawer = createDrawerNavigator();
   const route = useRoute();
-  const navigation = useNavigation();
   const currentScreenName = route.name;
   const dispatch = useDispatch();
   const { dataUser, token } = useSelector((state) => state.auth);
@@ -83,8 +84,6 @@ const AddVocaScreen = () => {
     }
   };
 
- 
-
   return (
     <View>
       <View className="w-screen relative h-screen  bg-red-400">
@@ -93,21 +92,19 @@ const AddVocaScreen = () => {
           resizeMode="cover"
           className=" w-screen h-screen"
         >
-          {/* <MyDrawer></MyDrawer> */}
-          <View className="ml-[85%] mt-5">
-            <TouchableOpacity
-              onPress={() => navigation.openDrawer()}
-              className="mt-6 flex"
-            >
-              <MenuSVG width="45" height="45"></MenuSVG>
-            </TouchableOpacity>
-          </View>
           <View className="flex-col flex-1">
-            <View className="flex-col mt-20 justify-center items-center ">
-              {/* <View>
-                <Button title="Phát âm thanh" onPress={playSound} />
-              </View> */}
-              <View>
+            {isShowDrawer && (
+              <Drawer setIsShowDrawer={setIsShowDrawer}></Drawer>
+            )}
+            <View className="flex-col mt-12 justify-center items-center ">
+              <View className="mb-4 absolute top-0 right-6">
+                {!isShowDrawer && (
+                  <TouchableOpacity onPress={() => setIsShowDrawer(true)}>
+                    <MenuSVG width={35} height={35}></MenuSVG>
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View className="mt-16">
                 <Text className="mb-2 text-colorBrownDarkLV2 font-bold text-[18px]">
                   Từ loại
                 </Text>

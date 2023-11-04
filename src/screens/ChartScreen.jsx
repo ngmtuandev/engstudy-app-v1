@@ -22,6 +22,7 @@ import {
   StackedBarChart,
 } from "react-native-chart-kit";
 import BoxInChart from "../component/BoxInChart";
+import Drawer from "../component/Drawer";
 
 const ChartScreen = () => {
   const route = useRoute();
@@ -33,6 +34,7 @@ const ChartScreen = () => {
   // const totalVocaLearning = useRef(0);
   const [totalVoca, setTotalVoca] = useState(0);
   const [totalVocaFinish, setTotalVocaFinish] = useState(0);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const [totalVocaLearning, setTotalVocaLearning] = useState(0);
   const { fetchListVocabulary, fetchListVocabularyLearnedTest } =
     useVocabulary();
@@ -51,7 +53,6 @@ const ChartScreen = () => {
         setTotalVocaFinish(vocaFinish?.data.length);
       }
       // console.log("vocaFinish >>>>", vocaFinish?.data.length);
-      setDoLearning(totalVoca - totalVocaFinish);
     })();
   }, []);
 
@@ -74,7 +75,17 @@ const ChartScreen = () => {
           resizeMode="cover"
           className=" w-screen h-screen"
         >
+          {isOpenDrawer && <Drawer></Drawer>}
           <View className="flex-col mt-28 items-center flex-1">
+            <View>
+              <TouchableOpacity
+                onPress={() => {
+                  setIsOpenDrawer(true);
+                }}
+              >
+                <Text>Open drawer</Text>
+              </TouchableOpacity>
+            </View>
             <View className="flex justify-center items-center">
               <Text className="text-[28px] font-bold text-colorBrownDarkLV2 mb-5">
                 Biểu đồ thống kê

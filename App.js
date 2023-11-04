@@ -25,6 +25,10 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 import { logout } from "./src/store/authSlice";
 import LogoutScreen from "./src/screens/LogoutScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
+import EditProfile from "./src/screens/EditProfile";
+import EditInfo from "./src/screens/EditInfo";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 export default function App() {
@@ -45,7 +49,7 @@ export default function App() {
         <View className="flex-1">
           <NavigationContainer>
             {
-              <Drawer.Navigator initialRouteName={SCREEN_NAME.WELCOME}>
+              <Stack.Navigator initialRouteName={SCREEN_NAME.WELCOME}>
                 <Stack.Screen
                   name={SCREEN_NAME.ADDVOCA}
                   component={AddVocaScreen}
@@ -64,6 +68,11 @@ export default function App() {
                 <Stack.Screen
                   name={SCREEN_NAME.REGISTER}
                   component={RegisterScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={SCREEN_NAME.EDIT}
+                  component={EditInfo}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
@@ -87,6 +96,11 @@ export default function App() {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
+                  name="EditProfile"
+                  component={EditProfile}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
                   name={SCREEN_NAME.ITEM_VOCA}
                   component={LearnItemVocaOne}
                   options={{ headerShown: false }}
@@ -101,15 +115,15 @@ export default function App() {
                   component={OptionVocaScreen}
                   options={{ headerShown: false }}
                 />
-                <Drawer.Screen
+                {/* <Drawer.Screen
                   options={{ headerShown: false }}
                   name="Logout"
                   // options={{
                   //   drawerLabel: "Logout",
                   // }}
-                  component={LogoutScreen}
-                />
-              </Drawer.Navigator>
+                  component={LogoutScreen} */}
+                {/* /> */}
+              </Stack.Navigator>
             }
           </NavigationContainer>
           <StatusBar style="auto" />

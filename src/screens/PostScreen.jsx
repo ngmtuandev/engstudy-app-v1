@@ -232,11 +232,18 @@ const PostScreen = () => {
                     >
                       <View>
                         <View className="flex-row flex items-center mt-2">
-                          <UserSVG
-                            width="40"
-                            height="40"
-                            className="mr-2"
-                          ></UserSVG>
+                          {item?.user?.avatar ? (
+                            <Image
+                              className="w-[50px] h-[50px] mr-3 rounded-full"
+                              source={{ uri: item?.user?.avatar }}
+                            ></Image>
+                          ) : (
+                            <UserSVG
+                              width="40"
+                              height="40"
+                              className="mr-2"
+                            ></UserSVG>
+                          )}
                           <View>
                             <Text className="text-[20px] font-bold">
                               {item?.user?.firstName +

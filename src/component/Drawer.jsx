@@ -23,35 +23,60 @@ const Drawer = ({ setIsShowDrawer }) => {
   console.log(userCurrent);
   return (
     <View className="absolute h-screen w-screen flex-1 flex-row left-0 z-10">
-      <View className="flex-1 shadow-xl bg-gray-100 h-screen">
+      <View className="w-[70%] shadow-xl bg-gray-100 h-screen">
         <View className="mt-10 ml-2">
           <View>
             <View className="flex-row items-center">
               <Image
-                className="w-[50px] h-[50px] rounded-full mr-2"
+                className="w-[70px] h-[70px] rounded-full mr-4"
                 source={{ uri: userCurrent?.avatar }}
               ></Image>
               <View>
-                <Text className="text-[14px]">Xin chào,</Text>
-                <Text className="text-[16px]">{`${userCurrent?.firstName} ${userCurrent?.lastName}`}</Text>
+                <Text className="text-[18px]">Xin chào,</Text>
+                <Text className="text-[20px]">{`${userCurrent?.firstName} ${userCurrent?.lastName}`}</Text>
               </View>
             </View>
           </View>
-          <Pressable
-            onPress={() => {
-              navigation.navigate(SCREEN_NAME.EDIT);
-            }}
-          >
-            <Text> Cập nhập thông tin</Text>
-          </Pressable>
-          <Pressable
-            onPress={() => {
-              dispatch(logout());
-              navigation.navigate(SCREEN_NAME.LOGIN);
-            }}
-          >
-            <Text>Đăng xuất</Text>
-          </Pressable>
+          <View className="mt-5">
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(SCREEN_NAME.EDIT);
+                }}
+              >
+                <Text className="text-[16px] font-semibold">
+                  Cập nhập thông tin
+                </Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable
+                onPress={() => {
+                  dispatch(logout());
+                  navigation.navigate(SCREEN_NAME.TEST);
+                }}
+              >
+                <Text className="text-[16px] font-semibold">
+                  Kiểm tra từ đã học
+                </Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable
+                onPress={() => {
+                  dispatch(logout());
+                  navigation.navigate(SCREEN_NAME.LOGIN);
+                }}
+              >
+                <Text className="text-[16px] font-semibold">Đăng xuất</Text>
+              </Pressable>
+            </View>
+          </View>
+          <View className="mt-11 text-center flex justify-center items-center">
+            <Text className="font-semibold text-[16px] text-gray-600">
+              Chính sách bảo mật quyền riêng tư ?
+            </Text>
+          </View>
         </View>
       </View>
       <Pressable

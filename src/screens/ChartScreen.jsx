@@ -75,9 +75,9 @@ const ChartScreen = () => {
           resizeMode="cover"
           className=" w-screen h-screen"
         >
-          {isOpenDrawer && <Drawer></Drawer>}
+          {/* {isOpenDrawer && <Drawer></Drawer>} */}
           <View className="flex-col mt-28 items-center flex-1">
-            <View>
+            {/* <View>
               <TouchableOpacity
                 onPress={() => {
                   setIsOpenDrawer(true);
@@ -85,7 +85,7 @@ const ChartScreen = () => {
               >
                 <Text>Open drawer</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
             <View className="flex justify-center items-center">
               <Text className="text-[28px] font-bold text-colorBrownDarkLV2 mb-5">
                 Biểu đồ thống kê

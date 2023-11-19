@@ -1,4 +1,4 @@
-import { View, Text, Button, TextInput } from "react-native";
+import { View, Text, Button, TextInput, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../hooks/useAuth";
@@ -69,31 +69,37 @@ const EditProfile = () => {
   };
   return (
     <View>
-      <View className="mt-8">
-        <Button title="Chọn hình ảnh" onPress={selectImage} />
-      </View>
-      <TextInput
-        className="border-[2px]"
-        onChangeText={(value) =>
-          setDataInput({ ...dataInput, firstName: value })
-        }
-      ></TextInput>
-      <TextInput
-        className="border-[2px]"
-        onChangeText={(value) =>
-          setDataInput({ ...dataInput, lastName: value })
-        }
-      ></TextInput>
-      <TextInput
-        className="border-[2px]"
-        onChangeText={(value) => setDataInput({ ...dataInput, phone: value })}
-      ></TextInput>
+      <ImageBackground
+        source={require("../assets/bg.png")}
+        resizeMode="cover"
+        className=" w-screen h-screen"
+      >
+        <View className="mt-8">
+          <Button title="Chọn hình ảnh" onPress={selectImage} />
+        </View>
+        <TextInput
+          className="border-[2px]"
+          onChangeText={(value) =>
+            setDataInput({ ...dataInput, firstName: value })
+          }
+        ></TextInput>
+        <TextInput
+          className="border-[2px]"
+          onChangeText={(value) =>
+            setDataInput({ ...dataInput, lastName: value })
+          }
+        ></TextInput>
+        <TextInput
+          className="border-[2px]"
+          onChangeText={(value) => setDataInput({ ...dataInput, phone: value })}
+        ></TextInput>
 
-      <View>
-        <TouchableOpacity onPress={handleUpdateProfile}>
-          <Text>Cập nhập</Text>
-        </TouchableOpacity>
-      </View>
+        <View>
+          <TouchableOpacity onPress={handleUpdateProfile}>
+            <Text>Cập nhập</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 };

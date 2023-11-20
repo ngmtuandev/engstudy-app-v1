@@ -61,27 +61,6 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
   const handleSubmitLogin = async () => {
     setIsHandleLogin(!isHandleLogin);
     try {
-      // dispatch(rememberAuth())
-      // if (!errForm.confirmpassword || !errForm.email || !errForm.password) {
-      //   Alert.alert(
-      //     'EngStudy thông báo !',
-      //     'Thông tin bạn nhập không chính xác',
-      //     [
-      //       {
-      //         text: isRegister ? 'Tạo lại' : 'Đăng nhập lại',
-      //         style: 'cancel',
-      //       },
-      //     ],
-      //     {
-      //       cancelable: true,
-      //       onDismiss: () =>
-      //         Alert.alert(
-      //           'This alert was dismissed by tapping outside of the alert dialog.',
-      //         ),
-      //     },
-      //   );
-      // }
-      // else {
       if (isChecked === false) {
         setIsLoading(false);
         const data = {
@@ -89,6 +68,21 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
           remember: false,
           password: dataForm?.password,
         };
+        // console.log("data login : ", data);
+        // try {
+        //   await fetch("http://192.168.1.105:5000/api/user/login", {
+        //     method: "post",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //       // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     },
+        //     body: JSON.stringify(data),
+        //   })
+        //     .then((rs) => rs.json)
+        //     .then((data) => console.log("data rs login : ", data));
+        // } catch (error) {
+        //   console.log(error);
+        // }
         dispatch(actionAsyncLogin(data));
         setIsLoading(true);
       } else {
@@ -191,23 +185,27 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
         {!errForm.email && (
           <ErrorValidate err={"Trường này phải là email"}></ErrorValidate>
         )}
-        <TextInput
-          onChangeText={(text) => {
-            setDataForm({ ...dataForm, firstName: text });
-          }}
-          className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
-          placeholder="Họ của bạn"
-          value={dataForm?.firstName}
-        ></TextInput>
-        <TextInput
-          onChangeText={(text) => {
-            // console.log('text >>>', text)
-            setDataForm({ ...dataForm, lastName: text });
-          }}
-          className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
-          placeholder="Tên của bạn"
-          value={dataForm?.lastName}
-        ></TextInput>
+        {isRegister && (
+          <TextInput
+            onChangeText={(text) => {
+              setDataForm({ ...dataForm, firstName: text });
+            }}
+            className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+            placeholder="Họ của bạn"
+            value={dataForm?.firstName}
+          ></TextInput>
+        )}
+        {isRegister && (
+          <TextInput
+            onChangeText={(text) => {
+              // console.log('text >>>', text)
+              setDataForm({ ...dataForm, lastName: text });
+            }}
+            className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+            placeholder="Tên của bạn"
+            value={dataForm?.lastName}
+          ></TextInput>
+        )}
 
         <TextInput
           onChangeText={(text) => {

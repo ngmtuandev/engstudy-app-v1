@@ -39,15 +39,12 @@ const authSlice = createSlice({
 
     // full fill ...
     builder.addCase(actionAsyncLogin.fulfilled, (state, action) => {
-      // console.log('check action user in userSlice >>>', action.payload)
-      // console.log('actionAsyncLogin full extra >>>>', action?.payload?.dataLogin)
       const jsonValue = JSON.stringify(action?.payload?.dataLogin?.accessToken);
       state.token = jsonValue;
       state.isLoading = false;
       state.dataUser = action?.payload?.dataLogin;
       state.isLogin = true;
-      // console.log('check isRememberAuth >>>>', state.isRememberAuth)
-      // console.log(' action?.payload?.isRemember &&&&&',  action?.payload?.isRemember)
+
       if (!!action?.payload?.isRemember === true) {
         (async () => {
           // console.log('REMEMBER')

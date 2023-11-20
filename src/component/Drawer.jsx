@@ -52,12 +52,35 @@ const Drawer = ({ setIsShowDrawer }) => {
             <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
+                  navigation.navigate(SCREEN_NAME.EDIT);
+                }}
+              >
+                <Text className="text-[16px] font-semibold">Khóa học</Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable
+                onPress={() => {
                   dispatch(logout());
                   navigation.navigate(SCREEN_NAME.TEST);
                 }}
               >
                 <Text className="text-[16px] font-semibold">
                   Kiểm tra từ đã học
+                </Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable>
+                <Text className="text-[16px] font-semibold">
+                  Luyện đề toeic
+                </Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable>
+                <Text className="text-[16px] font-semibold">
+                  Đăng ký luyện thi
                 </Text>
               </Pressable>
             </View>

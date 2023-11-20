@@ -19,27 +19,30 @@ import { showAlert } from "../funcntionSupport/showAlert";
 import * as ImagePicker from "expo-image-picker";
 import format_date from "../funcntionSupport/formatDate";
 import { Audio } from "expo-av";
+import { useAuth } from "../hooks/useAuth";
 
 const PostScreen = () => {
   const route = useRoute();
   const currentScreenName = route.name;
-  const { UploadSVG, UserSVG, LikeSVG, CommentSVG, ShareSVG } = SvgIcon;
+  const { UploadSVG, UserSVG, LikeSVG, CommentSVG, ShareSVG, LikedSVG } =
+    SvgIcon;
   const [isShowPost, setIsShowPost] = useState(false);
   const [dataInput, setDataInput] = useState({
     text: "",
   });
   const [comment, setComment] = useState("");
   const [listAllPost, setListAllPost] = useState([]);
+  const [userCurrent, setUserCurrent] = useState();
   const [allComment, setAllComment] = useState([]);
   const [showComment, setShowComment] = useState(false);
   const [commentMatchPost, setCommentMatchPost] = useState([]);
-  const [sound, setSound] = useState();
-
+  const { fetchUserCurrent } = useAuth();
   const { fetchCreatePost, fetchGetAllPost, fetchLikePost, fetchPostImg } =
     usePost();
   const { fetchCreateComment, fetchAllCommentItem } = useComment();
   let selectedImage = null;
   const { token } = useSelector((state) => state.auth);
+  console.log("listAllPost", listAllPost);
 
   useEffect(() => {
     (async () => {
@@ -49,15 +52,17 @@ const PostScreen = () => {
         "Đồng ý"
       );
       const allListPost = await fetchGetAllPost();
-      // console.log('allListPost : >>>>>', allListPost)
       if (allListPost) {
         const dataListPost = allListPost?.data.reverse();
         setListAllPost(dataListPost);
       }
+      const rs = await fetchUserCurrent(token);
+      if (rs) {
+        setUserCurrent(rs?.data);
+      }
       const { sound } = await Audio.Sound.createAsync(
         require("../assets/audio/lofi.mp3")
       );
-      // setSound(sound);
       await sound.playAsync();
     })();
   }, []);
@@ -81,13 +86,11 @@ const PostScreen = () => {
         "Mời bạn tiếp tục sử dụng ứng dụng"
       );
       const allListPost = await fetchGetAllPost();
-      // console.log('allListPost : >>>>>', allListPost)
       if (allListPost) {
         setListAllPost(allListPost?.data?.reverse());
       }
     }
   };
-  // console.log('listAllPost >>>>>', listAllPost[0])
 
   /// Test Function
 
@@ -96,7 +99,6 @@ const PostScreen = () => {
     const likePostItem = await fetchLikePost(id, token);
     console.log("like post >>>>", likePostItem);
     const allListPost = await fetchGetAllPost();
-    // console.log('allListPost : >>>>>', allListPost)
     if (allListPost) {
       setListAllPost(allListPost?.data?.reverse());
     }
@@ -104,8 +106,7 @@ const PostScreen = () => {
 
   const handleComment = async (pid) => {
     // console.log('----')
-    // console.log(pid)
-    // console.log('value comment : ', comment)
+
     const dataComment = await fetchCreateComment({ text: comment }, token, pid);
     console.log("data comment : ", dataComment);
   };
@@ -114,12 +115,9 @@ const PostScreen = () => {
     console.log("hellloo");
     const comments = await fetchAllCommentItem();
     const commentMatch = comments?.data?.filter((item) => item?.post === pid);
-    // console.log("comment metch : ", commentMatch);
     setCommentMatchPost(commentMatch);
     setShowComment(!showComment);
   };
-
-  // console.log("listAllPost : ", listAllPost[1]);
 
   const selectImage = async () => {
     let rs = await ImagePicker.launchImageLibraryAsync({
@@ -130,37 +128,9 @@ const PostScreen = () => {
     });
 
     if (!rs.canceled) {
-      // formData.append("image", {
-      //   uri: rs.assets[0].uri,
-      //   name: "image.jpg",
-      //   type: "image/jpg",
-      // });
-
-      /// Test
       selectedImage = rs;
-
-      // const postImg = await fetchPostImg(id, token, formData);
-      // console.log("postImg", postImg);
     }
   };
-
-  // console.log("listAllPost >>>", listAllPost);
-
-  // async function playSound() {
-  //   const { sound } = await Audio.Sound.createAsync(
-  //     require("../assets/audio/lofi.mp3")
-  //   );
-  //   // setSound(sound);
-  //   await sound.playAsync();
-  // }
-
-  // useEffect(() => {
-  //   return sound
-  //     ? () => {
-  //         sound.unloadAsync();
-  //       }
-  //     : undefined;
-  // }, [sound]);
 
   return (
     <View>
@@ -227,8 +197,8 @@ const PostScreen = () => {
                   return (
                     <View
                       key={index}
-                      className="w-[380px] p-[10px] rounded-xl shadow-md
-                          min-h-[180px] bg-colorBrownSlightLV2 mb-3"
+                      className="w-[380px] p-[10px] rounded-xl
+                          min-h-[180px] bg-white mb-3"
                     >
                       <View>
                         <View className="flex-row flex items-center mt-2">
@@ -270,7 +240,11 @@ const PostScreen = () => {
                           onPress={() => handleLikePost(item?._id)}
                           className="mr-6 flex justify-center items-center"
                         >
-                          <LikeSVG width="30" height="30"></LikeSVG>
+                          {item?.likes.includes(userCurrent?._id) ? (
+                            <LikedSVG width="30" height="30"></LikedSVG>
+                          ) : (
+                            <LikeSVG width="30" height="30"></LikeSVG>
+                          )}
                           <Text>{item?.likes.length} lượt thích</Text>
                         </TouchableOpacity>
                         <TouchableOpacity className="mr-6 flex justify-center items-center">

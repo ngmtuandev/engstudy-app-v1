@@ -1,7 +1,8 @@
-import axios from "../untils/configAxios";
+import axiosconfig from "../untils/configAxios";
+import axios from "axios";
 export function useAuth() {
   const fetchRegister = (data) =>
-    axios({
+    axiosconfig({
       url: "/user/register",
       method: "post",
       data,
@@ -9,15 +10,24 @@ export function useAuth() {
     });
 
   const fetchLogin = (data) =>
-    axios({
+    axiosconfig({
       url: "/user/login",
       method: "post",
       data,
       withCredentials: true,
     });
 
+  const apiLogin = async (data) => {
+    const rs = await axios({
+      method: "post",
+      url: "http://localhost:5000/api/user/login",
+      data: data,
+    });
+    console.log(rs);
+  };
+
   const fetchUpdateUser = (data, token) =>
-    axios({
+    axiosconfig({
       url: "/user/update",
       method: "put",
       data,
@@ -27,7 +37,7 @@ export function useAuth() {
     });
 
   const fetchUserCurrent = (token) =>
-    axios({
+    axiosconfig({
       url: "/user/current",
       method: "get",
       headers: {
@@ -40,5 +50,6 @@ export function useAuth() {
     fetchLogin,
     fetchUpdateUser,
     fetchUserCurrent,
+    apiLogin,
   };
 }

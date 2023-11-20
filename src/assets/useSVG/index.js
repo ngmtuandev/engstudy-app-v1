@@ -15,6 +15,7 @@ import ShareSVG from "./ShareSVG";
 import MenuSVG from "./MenuSVG";
 import SoundOnSVG from "./SoundOnSVG";
 import SoundOffSVG from "./SoundOffSVG";
+import LikedSVG from "./LikedSVG";
 
 const SvgIcon = {
   PostSVG,
@@ -34,5 +35,6 @@ const SvgIcon = {
   MenuSVG,
   SoundOnSVG,
   SoundOffSVG,
+  LikedSVG,
 };
 export default SvgIcon;

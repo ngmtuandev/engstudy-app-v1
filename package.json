@@ -19,7 +19,7 @@
     "axios": "^1.5.1",
     "expo": "~49.0.13",
     "expo-av": "~13.4.1",
-    "expo-file-system": "~15.4.4",
+    "expo-file-system": "~15.4.5",
     "expo-image-picker": "~14.3.2",
     "expo-status-bar": "~1.6.0",
     "lodash": "^4.17.21",

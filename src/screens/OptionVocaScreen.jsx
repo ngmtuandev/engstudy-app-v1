@@ -27,7 +27,6 @@ const OptionVocaScreen = () => {
         lengthList.current = dataLearned?.data?.length;
         setListVocaTest(dataLearned?.data);
         setAnswer(dataLearned?.data[questionCurrent.current]);
-        // console.log('dataLearned?.data[0]', dataLearned?.data[0]?.vie)
         setListOption((listOption) => [
           ...listOption,
           dataLearned?.data[0]?.vie,
@@ -38,7 +37,6 @@ const OptionVocaScreen = () => {
 
   useEffect(() => {
     if (listVoCaTest) {
-      // console.log('set anser')
       randomNumber(3, lengthList.current)?.map((item) => {
         setListOption((listOption) => [...listOption, listVoCaTest[item]?.vie]);
 
@@ -50,10 +48,11 @@ const OptionVocaScreen = () => {
   }, [answer]);
 
   listFourOption.current = _.shuffle(listOption?.slice(3, 7));
+  listFourOption.current = [
+    ...listFourOption.current,
+    listVoCaTest[questionCurrent.current]?.vie,
+  ].filter((item) => item !== undefined);
 
-  const toggleSound = () => {
-    setIsSoundOn(!isSoundOn);
-  };
 
   const handleOption = async (item) => {
     // console.log('item option : ', item)
@@ -66,17 +65,12 @@ const OptionVocaScreen = () => {
         await sound.playAsync();
       }
       questionCurrent.current = +questionCurrent.current + 1;
-      // console.log(" questionCurrent.current : ", questionCurrent.current);
-      // console.log(
-      //   "listVoCaTest[questionCurrent.current]",
-      //   listVoCaTest[questionCurrent.current]?.vie
-      // );
+
       setAnswer(() => listVoCaTest[questionCurrent.current]);
       randomNumber(3, lengthList.current)?.map((item) => {
         setListOption((listOption) => [...listOption, listVoCaTest[item]?.vie]);
       });
-      // console.log("list option >>>", listOption);
-      listFourOption.current = _.shuffle(listOption?.slice(3, 7));
+      listFourOption.current = _.shuffle(listOption);
       setListOption([
         ...listFourOption.current,
         listVoCaTest[questionCurrent.current]?.vie,

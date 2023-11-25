@@ -13,4 +13,5 @@ export const SCREEN_NAME = {
   EDIT: "Edit",
   WELCOME: "Welcome",
   EDIT_PROFILE: "EditProfile",
+  DETAIL_POST: "DetailProfile",
 };

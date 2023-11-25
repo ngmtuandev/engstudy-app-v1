@@ -20,8 +20,8 @@ import * as ImagePicker from "expo-image-picker";
 import format_date from "../funcntionSupport/formatDate";
 import { Audio } from "expo-av";
 import { useAuth } from "../hooks/useAuth";
-
-const PostScreen = () => {
+import { SCREEN_NAME } from "../constants/screens";
+const PostScreen = ({ navigation }) => {
   const route = useRoute();
   const currentScreenName = route.name;
   const { UploadSVG, UserSVG, LikeSVG, CommentSVG, ShareSVG, LikedSVG } =
@@ -229,12 +229,20 @@ const PostScreen = () => {
                       <Text className="text-[22px] mt-2 text-gray-900">
                         {item?.text}
                       </Text>
-                      {item?.img[0] && (
-                        <Image
-                          className="w-[100%] h-[250px] my-3"
-                          source={{ uri: item?.img[0] }}
-                        ></Image>
-                      )}
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate(SCREEN_NAME.DETAIL_POST, {
+                            post: item,
+                          });
+                        }}
+                      >
+                        {item?.img[0] && (
+                          <Image
+                            className="w-[100%] h-[250px] my-3"
+                            source={{ uri: item?.img[0] }}
+                          ></Image>
+                        )}
+                      </TouchableOpacity>
                       <View className="flex-row my-1">
                         <TouchableOpacity
                           onPress={() => handleLikePost(item?._id)}

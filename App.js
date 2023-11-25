@@ -28,6 +28,7 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import EditProfile from "./src/screens/EditProfile";
 import EditInfo from "./src/screens/EditInfo";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import DetailPostScreen from "./src/screens/DetailPostScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -79,6 +80,11 @@ export default function App() {
                   name={SCREEN_NAME.LEARN}
                   component={LearnVocaScreen}
                   options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={SCREEN_NAME.DETAIL_POST}
+                  component={DetailPostScreen}
+                  options={{ headerShown: true }}
                 />
                 <Stack.Screen
                   name={SCREEN_NAME.POST}

@@ -221,6 +221,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
             setShowLogo(false);
             handleValidatePassword(dataForm.password);
           }}
+          secureTextEntry={true}
           className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
           placeholder="Mật khẩu"
           value={dataForm?.password}
@@ -245,6 +246,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
               dataForm.confirmpassword
             );
           }}
+          secureTextEntry={true}
           className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
           placeholder="Xác nhận mật khẩu"
           value={dataForm?.confirmpassword}

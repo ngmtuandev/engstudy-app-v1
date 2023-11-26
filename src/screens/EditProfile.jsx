@@ -4,6 +4,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../hooks/useAuth";
 import { useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
+
 const EditProfile = () => {
   let selectedImage = null;
   const { fetchUpdateUser } = useAuth();

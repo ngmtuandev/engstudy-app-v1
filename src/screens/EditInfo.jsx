@@ -10,8 +10,8 @@ import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../hooks/useAuth";
 import { useSelector } from "react-redux";
+import LottieView from "lottie-react-native";
 
-// import { TouchableOpacity } from "react-native-gesture-handler";
 const EditInfo = () => {
   let selectedImage = null;
   const { fetchUserCurrent } = useAuth();
@@ -94,6 +94,14 @@ const EditInfo = () => {
         className="border-[1px] pl-[8px] rounded-md h-[34px] w-[90%] outline-none mb-4"
         onChangeText={(value) => setDataInput({ ...dataInput, phone: value })}
       ></TextInput>
+      <View className="-mb-12">
+        <LottieView
+          className="w-[60px] h-[60px] ml-7 transition-all translate-x-4"
+          source={require("../assets/a4.json")}
+          autoPlay
+          loop
+        />
+      </View>
       <View className="w-[200px] h-[40px] flex justify-center rounded-md items-center bg-colorBrownDarkLV2 my-12">
         <TouchableOpacity onPress={handleUpdateProfile}>
           <Text className="text-gray-50 text-[17px]">Cập nhập thông tin</Text>

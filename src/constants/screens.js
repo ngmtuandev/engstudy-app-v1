@@ -14,4 +14,5 @@ export const SCREEN_NAME = {
   WELCOME: "Welcome",
   EDIT_PROFILE: "EditProfile",
   DETAIL_POST: "DetailProfile",
+  MATCH_ALPHABET: "MatchAlphabet",
 };

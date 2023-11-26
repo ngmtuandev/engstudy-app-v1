@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useVocabulary } from "../hooks/useVocabulary";
 import Modal from "react-native-modal";
 import { Audio } from "expo-av";
-
+import LottieView from "lottie-react-native";
 const _ = require("lodash");
 
 function removeDuplicates(arr) {
@@ -171,7 +171,15 @@ const ConnectVocaGameScreen = () => {
                 </View>
               </View>
             ) : (
-              <View>
+              <View className="flex-col justify-center items-center">
+                <View className="mb-4">
+                  <LottieView
+                    className="w-[280px] h-[280px]"
+                    source={require("../assets/a2.json")}
+                    autoPlay
+                    loop
+                  />
+                </View>
                 <TouchableOpacity
                   className="w-[160px] h-[44px] flex justify-center items-center shadow-md
                        bg-colorBrownDarkLV2 rounded-3xl"

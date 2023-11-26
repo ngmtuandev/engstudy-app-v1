@@ -27,8 +27,8 @@ import LogoutScreen from "./src/screens/LogoutScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import EditProfile from "./src/screens/EditProfile";
 import EditInfo from "./src/screens/EditInfo";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import DetailPostScreen from "./src/screens/DetailPostScreen";
+import MatchAlphabetScreen from "./src/screens/MatchAlphabetScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -99,6 +99,11 @@ export default function App() {
                 <Stack.Screen
                   name={SCREEN_NAME.CHART}
                   component={ChartScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={SCREEN_NAME.MATCH_ALPHABET}
+                  component={MatchAlphabetScreen}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen

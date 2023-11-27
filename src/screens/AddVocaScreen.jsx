@@ -27,6 +27,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Audio } from "expo-av";
 import Drawer from "../component/Drawer";
 const AddVocaScreen = () => {
+  const navigation = useNavigation();
   const [eng, setEng] = useState("");
   const [vie, setVie] = useState("");
   const [showEng, setShowEng] = useState(false);
@@ -196,7 +197,13 @@ const AddVocaScreen = () => {
                     {showVie && ` ${vie}`}
                   </Text>
                 </View>
-                {/* <View className='w-[70px] bg-red-700'><Text>dsadsadsad</Text></View> */}
+                <View>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate(SCREEN_NAME.CHAT_GPT)}
+                  >
+                    <Text>CHAT GPT</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
             <View className="flex-col flex-1 mt-16">

@@ -31,6 +31,7 @@ import DetailPostScreen from "./src/screens/DetailPostScreen";
 import MatchAlphabetScreen from "./src/screens/MatchAlphabetScreen";
 import ChatScreen from "./src/screens/ChatScreen";
 import DetailUser from "./src/screens/DetailUser";
+import ChatGPTScreen from "./src/screens/ChatGPTScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -136,6 +137,11 @@ export default function App() {
                 <Stack.Screen
                   name={SCREEN_NAME.DETAIL_USER}
                   component={DetailUser}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={SCREEN_NAME.CHAT_GPT}
+                  component={ChatGPTScreen}
                   options={{ headerShown: false }}
                 />
                 {/* <Drawer.Screen

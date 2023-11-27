@@ -17,4 +17,5 @@ export const SCREEN_NAME = {
   MATCH_ALPHABET: "MatchAlphabet",
   CHAT: "Chat",
   DETAIL_USER: "DetailUser",
+  CHAT_GPT: "ChatGPT",
 };

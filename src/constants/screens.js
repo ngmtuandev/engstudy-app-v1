@@ -15,4 +15,6 @@ export const SCREEN_NAME = {
   EDIT_PROFILE: "EditProfile",
   DETAIL_POST: "DetailProfile",
   MATCH_ALPHABET: "MatchAlphabet",
+  CHAT: "Chat",
+  DETAIL_USER: "DetailUser",
 };

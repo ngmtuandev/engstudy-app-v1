@@ -21,6 +21,7 @@ import format_date from "../funcntionSupport/formatDate";
 import { Audio } from "expo-av";
 import { useAuth } from "../hooks/useAuth";
 import { SCREEN_NAME } from "../constants/screens";
+
 const PostScreen = ({ navigation }) => {
   const route = useRoute();
   const currentScreenName = route.name;
@@ -69,7 +70,7 @@ const PostScreen = ({ navigation }) => {
 
   const handlePost = async () => {
     const newPostData = new FormData();
-    newPostData.append("text", dataInput.text); // Thêm dữ liệu văn bản
+    newPostData.append("text", dataInput.text);
 
     if (selectedImage) {
       newPostData.append("image", {
@@ -142,9 +143,6 @@ const PostScreen = ({ navigation }) => {
         >
           <View className="flex-row flex-1 justify-center">
             <View className="flex-col">
-              {/* <View>
-                <Button title="Phát âm thanh" onPress={playSound} />
-              </View> */}
               <View className="flex-row mt-16">
                 {
                   isShowPost ? (
@@ -200,32 +198,40 @@ const PostScreen = ({ navigation }) => {
                       className="w-[380px] p-[10px] rounded-xl
                           min-h-[180px] bg-white mb-3"
                     >
-                      <View>
-                        <View className="flex-row flex items-center mt-2">
-                          {item?.user?.avatar ? (
-                            <Image
-                              className="w-[50px] h-[50px] mr-3 rounded-full"
-                              source={{ uri: item?.user?.avatar }}
-                            ></Image>
-                          ) : (
-                            <UserSVG
-                              width="40"
-                              height="40"
-                              className="mr-2"
-                            ></UserSVG>
-                          )}
-                          <View>
-                            <Text className="text-[20px] font-bold">
-                              {item?.user?.firstName +
-                                " " +
-                                item?.user?.lastName}
-                            </Text>
-                            <Text className="text-[14px] text-gray-900">
-                              {format_date(item?.updatedAt)}
-                            </Text>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate(SCREEN_NAME.DETAIL_USER, {
+                            idUser: item?.user,
+                          })
+                        }
+                      >
+                        <View>
+                          <View className="flex-row flex items-center mt-2">
+                            {item?.user?.avatar ? (
+                              <Image
+                                className="w-[50px] h-[50px] mr-3 rounded-full"
+                                source={{ uri: item?.user?.avatar }}
+                              ></Image>
+                            ) : (
+                              <UserSVG
+                                width="40"
+                                height="40"
+                                className="mr-2"
+                              ></UserSVG>
+                            )}
+                            <View>
+                              <Text className="text-[20px] font-bold">
+                                {item?.user?.firstName +
+                                  " " +
+                                  item?.user?.lastName}
+                              </Text>
+                              <Text className="text-[14px] text-gray-900">
+                                {format_date(item?.updatedAt)}
+                              </Text>
+                            </View>
                           </View>
                         </View>
-                      </View>
+                      </TouchableOpacity>
                       <Text className="text-[22px] mt-2 text-gray-900">
                         {item?.text}
                       </Text>

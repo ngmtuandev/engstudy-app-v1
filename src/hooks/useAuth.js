@@ -45,11 +45,21 @@ export function useAuth() {
       },
     });
 
+  const fetchGetDetailUser = (token) =>
+    axiosconfig({
+      url: `/user/${token}`,
+      method: "get",
+      headers: {
+        author: `Bearer ${JSON.parse(token)}`,
+      },
+    });
+
   return {
     fetchRegister,
     fetchLogin,
     fetchUpdateUser,
     fetchUserCurrent,
     apiLogin,
+    fetchGetDetailUser,
   };
 }

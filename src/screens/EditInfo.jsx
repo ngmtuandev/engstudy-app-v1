@@ -11,10 +11,9 @@ import * as ImagePicker from "expo-image-picker";
 import { useAuth } from "../hooks/useAuth";
 import { useSelector } from "react-redux";
 import LottieView from "lottie-react-native";
-
 const EditInfo = () => {
   let selectedImage = null;
-  const { fetchUserCurrent } = useAuth();
+  const { fetchUserCurrent, fetchUpdateUser } = useAuth();
   const { token } = useSelector((state) => state.auth);
   const [userCurrent, setUserCurrent] = useState();
   const [dataInput, setDataInput] = useState({

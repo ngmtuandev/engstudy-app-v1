@@ -61,6 +61,15 @@ const Drawer = ({ setIsShowDrawer }) => {
             <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
+                  navigation.navigate(SCREEN_NAME.CHAT);
+                }}
+              >
+                <Text className="text-[16px] font-semibold">Chat</Text>
+              </Pressable>
+            </View>
+            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+              <Pressable
+                onPress={() => {
                   dispatch(logout());
                   navigation.navigate(SCREEN_NAME.TEST);
                 }}

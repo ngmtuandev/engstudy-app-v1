@@ -29,6 +29,8 @@ import EditProfile from "./src/screens/EditProfile";
 import EditInfo from "./src/screens/EditInfo";
 import DetailPostScreen from "./src/screens/DetailPostScreen";
 import MatchAlphabetScreen from "./src/screens/MatchAlphabetScreen";
+import ChatScreen from "./src/screens/ChatScreen";
+import DetailUser from "./src/screens/DetailUser";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -50,10 +52,15 @@ export default function App() {
         <View className="flex-1">
           <NavigationContainer>
             {
-              <Stack.Navigator initialRouteName={SCREEN_NAME.WELCOME}>
+              <Stack.Navigator initialRouteName={SCREEN_NAME.LOGIN}>
                 <Stack.Screen
                   name={SCREEN_NAME.ADDVOCA}
                   component={AddVocaScreen}
+                  options={{ headerShown: false }}
+                ></Stack.Screen>
+                <Stack.Screen
+                  name={SCREEN_NAME.CHAT}
+                  component={ChatScreen}
                   options={{ headerShown: false }}
                 ></Stack.Screen>
                 <Stack.Screen
@@ -124,6 +131,11 @@ export default function App() {
                 <Stack.Screen
                   name={SCREEN_NAME.OPTION_VOCA}
                   component={OptionVocaScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={SCREEN_NAME.DETAIL_USER}
+                  component={DetailUser}
                   options={{ headerShown: false }}
                 />
                 {/* <Drawer.Screen

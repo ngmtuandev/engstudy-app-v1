@@ -23,22 +23,22 @@ const Drawer = ({ setIsShowDrawer }) => {
   console.log(userCurrent);
   return (
     <View className="absolute h-screen w-screen flex-1 flex-row left-0 z-10">
-      <View className="w-[70%] shadow-xl bg-gray-100 h-screen">
-        <View className="mt-10 ml-2">
-          <View>
-            <View className="flex-row items-center">
+      <View className="w-[70%] shadow-xl bg-gray-100 rounded-tr-[50px] rounded-br-[50px] h-screen">
+        <View className="mt-10">
+          <View className="bg-colorYellowMain h-[150px] rounded-tr-[50px] -mt-10">
+            <View className="flex-row mt-10 ml-3 items-center">
               <Image
                 className="w-[70px] h-[70px] rounded-full mr-4"
                 source={{ uri: userCurrent?.avatar }}
               ></Image>
               <View>
-                <Text className="text-[18px]">Xin chào,</Text>
-                <Text className="text-[20px]">{`${userCurrent?.firstName} ${userCurrent?.lastName}`}</Text>
+                <Text className="text-[14px] text-gray-700">Xin chào,</Text>
+                <Text className="text-[24px] text-gray-800 font-bold">{`${userCurrent?.firstName} ${userCurrent?.lastName}`}</Text>
               </View>
             </View>
           </View>
           <View className="mt-5">
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
                   navigation.navigate(SCREEN_NAME.EDIT);
@@ -49,7 +49,7 @@ const Drawer = ({ setIsShowDrawer }) => {
                 </Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
                   navigation.navigate(SCREEN_NAME.EDIT);
@@ -58,7 +58,7 @@ const Drawer = ({ setIsShowDrawer }) => {
                 <Text className="text-[16px] font-semibold">Khóa học</Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
                   navigation.navigate(SCREEN_NAME.CHAT);
@@ -67,7 +67,7 @@ const Drawer = ({ setIsShowDrawer }) => {
                 <Text className="text-[16px] font-semibold">Chat</Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
                   dispatch(logout());
@@ -79,21 +79,21 @@ const Drawer = ({ setIsShowDrawer }) => {
                 </Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable>
                 <Text className="text-[16px] font-semibold">
                   Luyện đề toeic
                 </Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable>
                 <Text className="text-[16px] font-semibold">
                   Đăng ký luyện thi
                 </Text>
               </Pressable>
             </View>
-            <View className="my-2 w-[95%] h-[40px] bg-gray-200 flex justify-center items-center rounded-md">
+            <View className="my-2 w-[95%] h-[40px] flex justify-center items-center rounded-md">
               <Pressable
                 onPress={() => {
                   dispatch(logout());

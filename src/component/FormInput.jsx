@@ -178,7 +178,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
           onBlur={() => {
             handleCheckEmail(dataForm.email);
           }}
-          className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+          className="w-[100%] h-[40px] rounded-lg border border-x-colorYellowMain border-y-colorYellowMain  px-[14px] text-colorYellowMain"
           placeholder="Email của bạn"
           value={dataForm?.email}
         ></TextInput>
@@ -190,7 +190,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
             onChangeText={(text) => {
               setDataForm({ ...dataForm, firstName: text });
             }}
-            className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+            className="w-[100%] h-[40px] rounded-lg border border-x-colorYellowMain border-y-colorYellowMain  px-[14px] text-colorYellowMain"
             placeholder="Họ của bạn"
             value={dataForm?.firstName}
           ></TextInput>
@@ -201,7 +201,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
               // console.log('text >>>', text)
               setDataForm({ ...dataForm, lastName: text });
             }}
-            className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+            className="w-[100%] h-[40px] rounded-lg border border-x-colorYellowMain border-y-colorYellowMain  px-[14px] text-colorYellowMain"
             placeholder="Tên của bạn"
             value={dataForm?.lastName}
           ></TextInput>
@@ -222,7 +222,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
             handleValidatePassword(dataForm.password);
           }}
           secureTextEntry={true}
-          className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+          className="w-[100%] h-[40px] rounded-lg border border-x-colorYellowMain border-y-colorYellowMain  px-[14px] text-colorYellowMain"
           placeholder="Mật khẩu"
           value={dataForm?.password}
         ></TextInput>
@@ -247,7 +247,7 @@ const FormInput = ({ isRegister, toLogin, setShowLogo }) => {
             );
           }}
           secureTextEntry={true}
-          className="w-[100%] h-[40px] rounded-lg border border-x-colorBorder px-[14px] text-colorBrownBold"
+          className="w-[100%] h-[40px] rounded-lg border border-x-colorYellowMain border-y-colorYellowMain  px-[14px] text-colorYellowMain"
           placeholder="Xác nhận mật khẩu"
           value={dataForm?.confirmpassword}
         ></TextInput>

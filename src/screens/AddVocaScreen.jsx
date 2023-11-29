@@ -26,6 +26,8 @@ import TestVocaScreen from "./TestVocaScreen";
 import { useNavigation } from "@react-navigation/native";
 import { Audio } from "expo-av";
 import Drawer from "../component/Drawer";
+import LottieView from "lottie-react-native";
+
 const AddVocaScreen = () => {
   const navigation = useNavigation();
   const [eng, setEng] = useState("");
@@ -106,12 +108,12 @@ const AddVocaScreen = () => {
                 )}
               </View>
               <View className="mt-16">
-                <Text className="mb-2 text-colorBrownDarkLV2 font-bold text-[18px]">
+                <Text className="mb-2 text-gray-700 font-bold text-[28px]">
                   Từ loại
                 </Text>
                 <View
                   className="w-[300px] flex-row items-center justify-around 
-                      rounded-md grid-cols-4 h-[50px] bg-colorBrownSlightLV2"
+                      rounded-md grid-cols-4 h-[50px] "
                 >
                   {CATEGORY_VOCABULARY.map((item, index) => {
                     return (
@@ -121,20 +123,18 @@ const AddVocaScreen = () => {
                         className={`w-[60px] rounded-md flex justify-center items-center 
                                     h-[30px] ${
                                       category === item
-                                        ? "bg-colorBrownBold"
-                                        : "bg-colorBrownSlightLV3"
+                                        ? "bg-gray-200"
+                                        : "bg-gray-100"
                                     }`}
                       >
-                        <Text className="font-bold text-colorWhite">
-                          {item}
-                        </Text>
+                        <Text className="font-bold text-gray-800">{item}</Text>
                       </Pressable>
                     );
                   })}
                 </View>
               </View>
               <View className="mt-6">
-                <Text className="mb-2 text-colorBrownDarkLV2 font-bold text-[18px]">
+                <Text className="mb-2 text-gray-700 font-bold text-[24px]">
                   Từ Vựng
                 </Text>
                 <View
@@ -144,7 +144,7 @@ const AddVocaScreen = () => {
                   <FlagEngSVG></FlagEngSVG>
                   <TextInput
                     onChangeText={(text) => setEng(text)}
-                    className="text-colorBrownDarkLV2 font-bold text-[17px] w-[54%] h-[80%]"
+                    className="text-gray-700 font-bold text-[20px] w-[54%] h-[80%]"
                     placeholder="Tiếng Anh"
                   ></TextInput>
                   <TouchableOpacity
@@ -163,7 +163,7 @@ const AddVocaScreen = () => {
                   <FlagVieSVG></FlagVieSVG>
                   <TextInput
                     onChangeText={(text) => setVie(text)}
-                    className="text-colorBrownDarkLV2 font-bold text-[17px] w-[54%] h-[80%]"
+                    className="text-gray-700 font-bold text-[20px] w-[54%] h-[80%]"
                     placeholder="Tiếng Việt"
                   ></TextInput>
                   <TouchableOpacity
@@ -187,21 +187,28 @@ const AddVocaScreen = () => {
               </View>
               <View className="w-[300px] grid-cols-2 flex-row justify-between ">
                 <View className="w-[170px] ">
-                  <Text className="text-[20px] font-bold text-colorBrownDarkLV2">
+                  <Text className="text-[28px] font-bold text-gray-700">
                     {showEng && ` ${eng}`}
                   </Text>
                   <Text className="ml-1 text-colorBrownSlightLV3">{`${
                     category && `(${category})`
                   }`}</Text>
-                  <Text className="text-[18px] mt-1 text-colorBrownDarkLV2 font-bold">
+                  <Text className="text-[28px] mt-1 text-gray-700 font-bold">
                     {showVie && ` ${vie}`}
                   </Text>
                 </View>
-                <View>
+                <View className="mt-10">
                   <TouchableOpacity
                     onPress={() => navigation.navigate(SCREEN_NAME.CHAT_GPT)}
                   >
-                    <Text>CHAT GPT</Text>
+                    <View className="flex justify-center items-center">
+                      <LottieView
+                        className="w-[100px] h-[100px] mt-4 -ml-3 transition-all translate-x-4"
+                        source={require("../assets/ai.json")}
+                        autoPlay
+                        loop
+                      />
+                    </View>
                   </TouchableOpacity>
                 </View>
               </View>

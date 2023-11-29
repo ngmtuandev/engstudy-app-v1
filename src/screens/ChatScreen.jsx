@@ -4,7 +4,7 @@ import React, {
   useLayoutEffect,
   useCallback,
 } from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, ImageBackground } from "react-native";
 import { useSelector } from "react-redux";
 import { useAuth } from "../hooks/useAuth";
 import { GiftedChat } from "react-native-gifted-chat";

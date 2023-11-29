@@ -1,6 +1,12 @@
 import "dotenv/config";
 
 export default {
+  babel: {
+    // Đảm bảo có các presets và plugins dưới đây
+    plugins: [
+      'module:react-native-dotenv'
+    ],
+  },
   expo: {
     name: "frontend",
     slug: "frontend",

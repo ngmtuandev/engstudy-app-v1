@@ -87,11 +87,12 @@ const ChartScreen = () => {
               </TouchableOpacity>
             </View> */}
             <View className="flex justify-center items-center">
-              <Text className="text-[28px] font-bold text-colorBrownDarkLV2 mb-5">
+              <Text className="text-[28px] font-bold text-gray-800 mb-5">
                 Biểu đồ thống kê
               </Text>
-              <View className="flex-row justify-between">
+              <View className="flex-row text-black justify-between">
                 <BoxInChart
+                color = 'black'
                   data={totalVocaFinish}
                   text={"Từ đã thuộc"}
                 ></BoxInChart>

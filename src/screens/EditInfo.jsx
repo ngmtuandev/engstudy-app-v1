@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  ImageBackground
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
@@ -64,7 +65,12 @@ const EditInfo = () => {
     console.log("userUpdated: ", userUpdated);
   };
   return (
-    <View className="h-screen flex-col justify-center items-center w-[100%] bg-gray-100">
+    <ImageBackground
+          source={require("../assets/bgl.png")}
+          resizeMode="cover"
+          className="w-screen h-screen"
+        >
+    <View className="h-screen flex-col justify-center items-center w-[100%] ">
       <View>
         <Image
           className="w-[150px] h-[150px] mb-9 rounded-full mr-4"
@@ -101,12 +107,13 @@ const EditInfo = () => {
           loop
         />
       </View>
-      <View className="w-[200px] h-[40px] flex justify-center rounded-md items-center bg-colorBrownDarkLV2 my-12">
+      <View className="w-[200px] h-[40px] flex justify-center rounded-md items-center bg-colorYellowMain my-12">
         <TouchableOpacity onPress={handleUpdateProfile}>
-          <Text className="text-gray-50 text-[17px]">Cập nhập thông tin</Text>
+          <Text className="text-gray-50 text-[17px] font-bold">Cập nhập thông tin</Text>
         </TouchableOpacity>
       </View>
     </View>
+    </ImageBackground>
   );
 };
 

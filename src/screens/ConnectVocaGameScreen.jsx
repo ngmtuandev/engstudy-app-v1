@@ -162,9 +162,9 @@ const ConnectVocaGameScreen = () => {
                     </TouchableOpacity>
                   </View>
                 </Modal> */}
-                <View className="w-[250px] rounded-3xl flex justify-center items-center h-[40px] bg-colorBrownBold mt-5">
+                <View className="w-[250px] rounded-3xl flex justify-center items-center h-[40px] bg-white mt-5">
                   <TouchableOpacity onPress={handleContinue}>
-                    <Text className="text-colorWhite text-[17px] font-bold">
+                    <Text className="text-colorYellowMain text-[17px] font-bold">
                       Kiểm tra từ khác
                     </Text>
                   </TouchableOpacity>

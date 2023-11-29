@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, ImageBackground } from "react-native";
 import React, { useEffect } from "react";
 import SvgIcon from "../assets/useSVG";
 import { useComment } from "../hooks/useComment";
@@ -21,6 +21,11 @@ const DetailPostScreen = ({ route }) => {
     })();
   }, []);
   return (
+    <ImageBackground
+          source={require("../assets/bgl.png")}
+          resizeMode="cover"
+          className="w-screen h-screen"
+        >
     <View className="px-[12px] mt-2">
       <View>
         <View className="flex-row flex items-center mt-2">
@@ -95,6 +100,7 @@ const DetailPostScreen = ({ route }) => {
         )}
       </View>
     </View>
+    </ImageBackground>
   );
 };
 

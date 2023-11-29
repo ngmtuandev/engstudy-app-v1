@@ -31,10 +31,9 @@ import DetailPostScreen from "./src/screens/DetailPostScreen";
 import MatchAlphabetScreen from "./src/screens/MatchAlphabetScreen";
 import ChatScreen from "./src/screens/ChatScreen";
 import DetailUser from "./src/screens/DetailUser";
-import ChatGPTScreen from "./src/screens/ChatGPTScreen";
+import ChatGPT from "./src/screens/ChatGPT";
 
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
 export default function App() {
   const [tokenLogin, setTokenLogin] = useState(null);
   // const {dataUser, token} = useSelector(state => state.auth)
@@ -141,7 +140,7 @@ export default function App() {
                 />
                 <Stack.Screen
                   name={SCREEN_NAME.CHAT_GPT}
-                  component={ChatGPTScreen}
+                  component={ChatGPT}
                   options={{ headerShown: false }}
                 />
                 {/* <Drawer.Screen

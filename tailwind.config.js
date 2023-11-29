@@ -1,12 +1,14 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./App.{js,jsx,ts,tsx}", 
-  "./src/component/**/*.{js,jsx,ts,tsx}", 
-  "./src/screens/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./App.{js,jsx,ts,tsx}",
+    "./src/component/**/*.{js,jsx,ts,tsx}",
+    "./src/screens/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     padding: {
       form: "10px",
-      screen: "20px"
+      screen: "20px",
     },
     extend: {
       backgroundColor: {
@@ -14,19 +16,20 @@ module.exports = {
         bgDarkLight: "#1E2122",
       },
       fontFamily: {
-        LexendDeca_300Light: ['LexendDeca_300Light'],
-        LexendDeca_400Regular: ['LexendDeca_400Regular'],
+        LexendDeca_300Light: ["LexendDeca_300Light"],
+        LexendDeca_400Regular: ["LexendDeca_400Regular"],
       },
       colors: {
         colorWhite: "#FFFFFF",
-        colorBrownSlightLV2: "#EAC696",
-        colorBrownDarkLV2: "#765827",
-        colorBrownBold: "#765827",
-        colorBorder: "#6C6A6A",
-        colorBrownSlightLV3: "#C8AE7D",
+        colorBrownSlightLV2: "#fff",
+        colorBrownDarkLV2: "#fff",
+        colorBrownBold: "#fff",
+        colorBorder: "#fff",
+        colorBrownSlightLV3: "#fff",
+        colorYellowMain: "#ffcd48",
         background: {
           light: "#FFEECC",
-          weight: "#EAC696"
+          weight: "#EAC696",
         },
         brown: {
           brown1: "#EAC696",
@@ -36,11 +39,10 @@ module.exports = {
         },
         text: {
           gray: "#6D6A6A",
-          brownlight: "#EAC696"
-        }
+          brownlight: "#EAC696",
+        },
       },
     },
   },
   plugins: [],
-}
-
+};

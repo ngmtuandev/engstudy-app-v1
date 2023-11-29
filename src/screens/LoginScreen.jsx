@@ -29,17 +29,19 @@ const LoginScreen = () => {
     <SafeAreaView className="flex-1">
       <View className="w-screen h-screen bg-red-400">
         <ImageBackground
-          source={require("../assets/bg.png")}
+          source={require("../assets/bgl.png")}
           resizeMode="cover"
           className="w-screen h-screen"
         >
           <View className="flex-col items-center mt-12">
             {!showLogo && (
-              <View className="w-72 ml-24 h-16 mt-[80px]">
-                <Image
-                  className="object-contain w-[70%] h-[70%]"
-                  source={require("../assets/logo.png")}
-                ></Image>
+              <View className="w-72 ml-24 h-16 flex flex-row mt-[80px]">
+                <Text className="text-colorYellowMain text-[50px] font-bold">
+                  Eng
+                </Text>
+                <Text className="text-gray-900 text-[50px] font-bold">
+                  Study
+                </Text>
               </View>
             )}
             {/* <Pressable onPress={() => navigation.navigate('AddVoca')}>
@@ -61,7 +63,7 @@ const LoginScreen = () => {
                 }}
               >
                 <View>
-                  <Text className="font-bold text-gray-800 text-[12px]">
+                  <Text className="font-bold text-colorYellowMain text-[12px]">
                     Đăng Ký
                   </Text>
                 </View>
